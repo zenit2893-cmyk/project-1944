@@ -1,0 +1,7 @@
+# Security / Безопасность
+
+The security scope is the launcher, installation scripts, packaging, and files published by this repository. If you find a vulnerability, use GitHub's **private vulnerability reporting** on the Security tab when available. If it is not available, contact a maintainer privately through [Discord](https://discord.gg/7sGEwV3sB). Include a minimal reproduction without game files or private data. Please give maintainers time to assess and fix the issue before public disclosure.
+
+Область безопасности: лаунчер, скрипты установки, упаковка и файлы этого репозитория. Если вы нашли уязвимость, воспользуйтесь **приватным сообщением об уязвимости** во вкладке Security на GitHub, если функция доступна. Иначе свяжитесь с модератором лично через [Discord](https://discord.gg/7sGEwV3sB). Приложите минимальные шаги воспроизведения без игровых файлов и личных данных. Дайте время оценить и исправить проблему до публичного раскрытия.
+
+Область безпеки: лаунчер, скрипти встановлення, пакування та файли цього репозиторію. Якщо ви знайшли вразливість, скористайтеся **приватним повідомленням про вразливість** на вкладці Security у GitHub, якщо функція доступна. Інакше зв'яжіться з модератором особисто через [Discord](https://discord.gg/7sGEwV3sB). Додайте мінімальні кроки відтворення без ігрових файлів та особистих даних. Дайте час оцінити й виправити проблему до публічного розкриття.

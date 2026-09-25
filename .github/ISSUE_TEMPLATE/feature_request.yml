@@ -1,0 +1,27 @@
+name: Feature / Предложение / Пропозиція
+description: Propose a PC-port feature without game files / Предложите функцию / Запропонуйте функцію
+title: "[Feature] "
+labels: ["enhancement"]
+body:
+  - type: markdown
+    attributes:
+      value: "Do not upload game files, generated code, dumps, or private data. / Не загружайте игровые файлы, сгенерированный код, дампы или личные данные. / Не завантажуйте ігрові файли, згенерований код, дампи чи особисті дані."
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem / Задача / Проблема
+      description: What cannot you do today? / Чего не хватает сейчас?
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposed behavior / Предложение / Пропозиція
+      description: Describe the player-visible result. / Опишите результат для игрока.
+    validations:
+      required: true
+  - type: textarea
+    id: context
+    attributes:
+      label: Context / Контекст / Обмеження
+      description: Mention affected mission, controls, hardware, or other limits if relevant. / Укажите миссию, управление, оборудование или другие ограничения, если это важно.

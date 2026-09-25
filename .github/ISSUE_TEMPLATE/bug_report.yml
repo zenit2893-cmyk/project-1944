@@ -1,0 +1,73 @@
+name: Bug report / Отчёт / Звіт
+description: Report a Call of Duty 3 PC-port bug / Сообщить об ошибке / Повідомити про помилку
+title: "[bug] "
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Игровые файлы в отчёт не прикладывайте: проект их не распространяет и не принимает.
+        Do not attach game files: this project neither distributes nor accepts them.
+        Не додавайте ігрові файли: проєкт їх не поширює і не приймає.
+  - type: input
+    id: build
+    attributes:
+      label: Build / Сборка / Збірка
+      description: Версия пакета или хеш cod3_pc.exe из отчёта лаунчера.
+      placeholder: "native-runtime 2026-09-20 / SHA-256 DC18E9..."
+    validations:
+      required: true
+  - type: dropdown
+    id: area
+    attributes:
+      label: Area / Область / Сфера
+      options:
+        - Загрузка уровня / Level loading
+        - Вылет / Crash
+        - Графика / Graphics
+        - Звук / Audio
+        - Управление / Input
+        - Производительность / Performance
+        - Сохранения / Saves
+        - Другое / Other
+    validations:
+      required: true
+  - type: textarea
+    id: what
+    attributes:
+      label: What happened / Что произошло / Що сталося
+      description: Миссия, контрольная точка, место на карте, что вы делали.
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected / Что ожидалось / Очікуване
+    validations:
+      required: true
+  - type: input
+    id: repro
+    attributes:
+      label: Reproducibility / Повторяемость / Повторюваність
+      placeholder: "каждый раз / 1 раз из 5 / один раз"
+    validations:
+      required: true
+  - type: textarea
+    id: settings
+    attributes:
+      label: Launcher settings / Настройки / Налаштування
+      placeholder: "Полный экран, масштаб 1, 120 Гц, трава отключена, клавиатура"
+    validations:
+      required: true
+  - type: textarea
+    id: report
+    attributes:
+      label: Diagnostics archive / Архив отчёта / Архів звіту
+      description: |
+        Нажмите «Отчёт об ошибке» в лаунчере и приложите архив cod3-report-*.zip.
+        В нём логи, настройки, состав сборки и сведения о системе; игровых данных нет.
+        Перед публикацией проверьте архив на личные данные.
+        Review the archive for personal data before posting it.
+        Перед публікацією перевірте архів на особисті дані.
+    validations:
+      required: true

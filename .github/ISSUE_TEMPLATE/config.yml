@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Project 1944 Discord / Сообщество
+    url: https://discord.gg/7sGEwV3sB
+    about: Setup help and general discussion / Помощь с установкой и общие вопросы
+  - name: Tester guide / Инструкция для тестеров
+    url: https://github.com/zenit2893-cmyk/project-1944/blob/main/docs/testers.md
+    about: Supported source and reporting instructions / Поддерживаемая версия и оформление отчёта
