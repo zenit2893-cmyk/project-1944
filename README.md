@@ -6,7 +6,7 @@
 
 English · [Русский](README.ru.md) · [Українська](README.uk.md) · [Community](https://discord.gg/7sGEwV3sB) · [Releases](https://github.com/zenit2893-cmyk/project-1944/releases)
 
-> **Source repository.** There is no downloadable Project 1944 release here yet. The build in the development workspace is not a public release. Do not download a similarly named archive from an unverified source.
+> **Release 1.0:** Download `cod3-pc-full.zip` and `SHA256SUMS.txt` from this repository's [Releases](https://github.com/zenit2893-cmyk/project-1944/releases). This repository holds the source; your own legally obtained Xbox 360 game is required.
 
 Project 1944 statically recompiles the supported Xbox 360 game's PowerPC code to C++ using [ReXGlue](https://github.com/rexglue/rexglue-sdk), then builds a Windows x64 host and 15 campaign level DLLs. The runtime uses Xenia-derived kernel and graphics layers. This is a native PC build rather than an emulator frontend.
 
@@ -34,7 +34,9 @@ The development build was exercised on the first Saint-Lô mission, including ga
 
 The supported `default.xex` SHA-256 is `2944EEC7D1231AD6798B5F9F8ADF8855F5E489296B22EAB45B27A577CEE23692`. The launcher verifies the game source before installation. It does not fetch the game from the internet.
 
-## Quick start when a release is available
+## Quick start for release 1.0
+
+Full instructions: [English](INSTALL_EN.md) · [Русский](INSTALL_RU.md) · [Українська](INSTALL_UK.md).
 
 1. Download `cod3-pc-full.zip` from this repository's [Releases](https://github.com/zenit2893-cmyk/project-1944/releases) page and unpack it on a drive with enough free space.
 2. Run `Project1944.exe`. If the executable is blocked, `launcher\PLAY-COD3.cmd` opens the same launcher.

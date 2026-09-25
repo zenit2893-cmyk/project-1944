@@ -7,7 +7,7 @@ Releases are built and reviewed on the owner's machine, using the owner's game c
 3. Package with `pwsh -NoProfile -File scripts/release-package/New-Cod3Package.ps1 -Bundle Full`. The expected output is `integration/release-packaging/artifacts/cod3-pc-full.zip`.
 4. Audit the archive with the packaging manifest and [docs/legal.md](legal.md). Include the source materials required by the GPL and LGPL components, plus all notices.
 5. Compute SHA-256 for the final archive and put the filename and hash in `SHA256SUMS.txt`.
-6. Create a reviewed tag such as `v2.1.0`, attach the archive and checksum file to a GitHub Release, and write English, Russian, and Ukrainian notes covering features, fixes, known issues, and the exact playtest scope.
+6. Create a reviewed tag such as `v1.0.0`, attach the archive and checksum file to a GitHub Release, and write English, Russian, and Ukrainian notes covering features, fixes, known issues, and the exact playtest scope.
 
 The release notes must say that this is an unofficial fan project, that a legally obtained Xbox 360 copy is required, and that other game revisions and machines may behave differently. A successful package build is not a substitute for a real installation and gameplay test.
 
