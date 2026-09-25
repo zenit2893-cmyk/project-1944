@@ -1,0 +1,17 @@
+root = true
+
+[*]
+charset = utf-8
+end_of_line = crlf
+insert_final_newline = true
+
+[*.{ps1,psm1,cs,cpp,c,h,hpp,py}]
+indent_style = space
+indent_size = 4
+
+[*.{json,yml,yaml}]
+indent_style = space
+indent_size = 2
+
+[launcher/Cod3Launcher.ps1]
+charset = utf-8-bom
