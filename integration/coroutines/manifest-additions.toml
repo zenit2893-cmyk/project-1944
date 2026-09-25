@@ -1,0 +1,12 @@
+# Merge the template_dir key into the EXISTING [entrypoint] table. The root
+# application owns its manifest; this file is reviewable integration guidance.
+[entrypoint]
+template_dir = "../integration/coroutines/templates"
+
+# Keep the independently identified CRT setjmp_address/longjmp_address entries.
+# Hook only the ORIGINAL custom-resume blr after all guest state is restored.
+[[entrypoint.midasm_hook]]
+address = 0x824A6480
+name = "Cod3CoroutineResumeRestored"
+registers = []
+return = true

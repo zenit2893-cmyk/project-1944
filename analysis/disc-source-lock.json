@@ -1,0 +1,32 @@
+{
+  "schema_version": 1,
+  "game": "Call of Duty 3 (USA, Europe)",
+  "title_id": "415607E1",
+  "media_id": "2E07093A",
+  "xex_version": "0.0.0.1",
+  "expected_iso": {
+    "path_from_workspace": "Call of Duty 3 (USA, Europe).iso",
+    "size_bytes": 7834892288,
+    "sha256": "0FD477CE0A6BA1BF9784292073A43EE7CA7BA1FD04DB60F9C265BFCD5A6C1586",
+    "sha256_verified_utc": "2026-09-05T08:03:50.2636194Z"
+  },
+  "expected_default_xex": {
+    "path_from_workspace": "game/cod3/default.xex",
+    "size_bytes": 7254016,
+    "sha256": "2944EEC7D1231AD6798B5F9F8ADF8855F5E489296B22EAB45B27A577CEE23692",
+    "sha256_verified_utc": "2026-09-05T08:15:42.9451631Z",
+    "entry_point": "0x82344D00",
+    "image_base": "0x82000000"
+  },
+  "extracted_files": {
+    "manifest_from_workspace": "analysis/disc-file-manifest.csv",
+    "manifest_sha256": "4266BEDC9E845AD62EB499F8A6904D658F39092E7392474C601011ACF7B22468",
+    "file_count": 553,
+    "total_bytes": 6193138297
+  },
+  "evidence": {
+    "extraction_receipt": "analysis/disc-extraction.json",
+    "title_headers": "analysis/title-metadata.json",
+    "note": "Expected-input lock for build validation. ISO SHA256 is from the completed extraction verification; a build must hash inputs live before treating them as currently verified."
+  }
+}

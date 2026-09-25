@@ -1,0 +1,38 @@
+{
+  "passed": true,
+  "xenia_source_commit": "0e1307bd2e6bfeeff29635a6b823e72e61c97ce9",
+  "source_contract": {
+    "common_required_tokens": 10,
+    "recompiler_required_tokens": 6,
+    "xenia_commit": "0e1307bd2e6bfeeff29635a6b823e72e61c97ce9"
+  },
+  "numerical_oracle": {
+    "gradient_layout_cases": 1,
+    "cube_projection_cases": 9,
+    "cube_inverse_cases": 6,
+    "fetch_word4_cases": 4
+  },
+  "generated_artifacts": {
+    "hlsl_artifacts": 610,
+    "counts": {
+      "get_texture_gradients": 332,
+      "set_gradients_horizontal": 30,
+      "set_gradients_vertical": 30,
+      "sample_grad_2d": 9,
+      "sample_grad_cube": 27,
+      "word4_references": 36
+    },
+    "source_containers_unchanged": true,
+    "known_semantic_blockers": 0,
+    "batch_summary": {
+      "containers": 437,
+      "total": 610,
+      "passed_all_stages": 610,
+      "failed": 0,
+      "hlsl_passed": 610,
+      "dxil_passed": 610,
+      "spirv_passed": 610,
+      "entries_with_known_semantic_blockers": 0
+    }
+  }
+}

@@ -1,0 +1,61 @@
+{
+  "schema_version": 1,
+  "status": "PASS",
+  "recorded_utc": "2026-09-13T13:31:52.3947292Z",
+  "reXglue_source_commit": "0c7b01a0ac0479801757507d80533f662fa0815d",
+  "source_worktree": "<workspace>\\integration\\rexglue-runtime-build\\src",
+  "stage_root": "<workspace>\\integration\\upscaling\\runtime-source",
+  "spatial_overlay_manifest": "<workspace>\\integration\\upscaling\\overlay-manifest.json",
+  "spatial_overlay_manifest_sha256": "A79514B5377E633F3E4BC0A9A181E7F78FC77A16C0A15EEB42D743AA55EC50AF",
+  "configuration": "RelWithDebInfo",
+  "compiler": "Clang 22.1.8 with MSVC ABI",
+  "spatial_compile_define": "REX_HAS_FIDELITYFX_SPATIAL=1",
+  "temporal_runtime": false,
+  "guest_clock_modified": false,
+  "guest_video_mode_modified": false,
+  "runtime_dll": "<workspace>\\integration\\upscaling\\runtime-build\\bin\\rexruntimerd.dll",
+  "runtime_dll_sha256": "357CCAE1BFB8D75A8BCD7FC7E5C7AE8B0D9BB05BDB5B0CF8C7C5D98F42763EDD",
+  "probe": "<workspace>\\integration\\rexglue-runtime-build\\probe-build\\runtime_heap_abi_probe.exe",
+  "probe_sha256": "578CB7276F44C603D602D0129A99BE235B400189C43040403409FB627AB9CCD1",
+  "requested_runtime": "<workspace>\\integration\\upscaling\\runtime-build\\bin\\rexruntimerd.dll",
+  "observed_runtime": "<workspace>\\integration\\upscaling\\runtime-build\\bin\\rexruntimerd.dll",
+  "runtime_path_verified": true,
+  "probe_exit_code": 0,
+  "probe_result": {
+    "schema": 1,
+    "guest_entry_executed": false,
+    "same_heap": true,
+    "main_base": 2181038080,
+    "level_base": 2298478592,
+    "main_before": {
+      "base": 2181038080,
+      "allocation_base": 2181038080,
+      "allocation_size": 12779520,
+      "region_size": 5898240,
+      "state": 3,
+      "protect": 1
+    },
+    "main_after_level_load": {
+      "base": 2181038080,
+      "allocation_base": 2181038080,
+      "allocation_size": 12779520,
+      "region_size": 5898240,
+      "state": 3,
+      "protect": 1
+    },
+    "level_region": {
+      "base": 2298478592,
+      "allocation_base": 2298478592,
+      "allocation_size": 2490368,
+      "region_size": 2424832,
+      "state": 3,
+      "protect": 1
+    },
+    "main_first_64_bytes_unchanged": true,
+    "overlap_reservation_before": false,
+    "overlap_reservation_after": false,
+    "regression_reproduced": false
+  },
+  "probe_result_path": "<workspace>\\integration\\upscaling\\runtime-build\\spatial-probe-result.json",
+  "no_game_entry_executed": true
+}

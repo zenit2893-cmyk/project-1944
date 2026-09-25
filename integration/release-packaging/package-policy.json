@@ -1,0 +1,25 @@
+{
+  "schema_version": 1,
+  "runtime": {
+    "required_executable": "cod3_pc.exe",
+    "required_helpers": ["cod3_coroutines.dll", "rexgpu-xenosrd.dll", "rexruntimerd.dll", "TracyClientrd.dll"],
+    "mission_dll_pattern": "cod3_pc_*.dll",
+    "pdbs_and_import_libraries": false,
+    "game_data": false
+  },
+  "developer": {
+    "source_roots": ["cod3-pc", "integration", "scripts", "tests"],
+    "documentation_roots": ["docs"],
+    "root_files": ["README.md", "LICENSE", ".gitignore", "START-COD3-PC.cmd"],
+    "game_data": false,
+    "generated_guest_code": false,
+    "build_output": false
+  },
+  "toolchain": {
+    "payloads_included": false,
+    "provenance_recorded": true,
+    "microsoft_payloads_redistributed": false
+  },
+  "forbidden_path_segments": ["game", "generated", "out", "build", "cache", "userdata", "metadata", "__pycache__"],
+  "forbidden_extensions": [".iso", ".7z", ".zip", ".xex", ".cod", ".wbk", ".obj", ".pdb", ".dmp", ".xsh", ".xpso", ".bin", ".cab", ".hlsl", ".spv", ".dxil", ".kwj"]
+}

@@ -1,0 +1,268 @@
+[
+  {
+    "module": "blkbrn",
+    "static_instruction_counts": {
+      "fsubs": 461,
+      "frsp": 298,
+      "fctiwz": 60,
+      "mffs": 5,
+      "mtfsf": 5,
+      "fmadds": 25,
+      "fctidz": 8,
+      "fmsubs": 4
+    },
+    "vpkd3d128_type_mask_shift": {},
+    "packing_destination_aliases_source": {}
+  },
+  {
+    "module": "chambois",
+    "static_instruction_counts": {
+      "fsubs": 491,
+      "frsp": 326,
+      "fctiwz": 62,
+      "fmadds": 31,
+      "mtfsf": 5,
+      "fctidz": 9,
+      "mffs": 5,
+      "fmsubs": 3
+    },
+    "vpkd3d128_type_mask_shift": {},
+    "packing_destination_aliases_source": {}
+  },
+  {
+    "module": "credits",
+    "static_instruction_counts": {
+      "frsp": 279,
+      "fsubs": 454,
+      "fctidz": 11,
+      "fctiwz": 59,
+      "fmadds": 25,
+      "mffs": 5,
+      "mtfsf": 5,
+      "fmsubs": 3
+    },
+    "vpkd3d128_type_mask_shift": {},
+    "packing_destination_aliases_source": {}
+  },
+  {
+    "module": "crssrds",
+    "static_instruction_counts": {
+      "fctiwz": 62,
+      "frsp": 338,
+      "fsubs": 500,
+      "fmsubs": 3,
+      "mffs": 5,
+      "mtfsf": 5,
+      "fmadds": 25,
+      "fctidz": 9
+    },
+    "vpkd3d128_type_mask_shift": {},
+    "packing_destination_aliases_source": {}
+  },
+  {
+    "module": "default",
+    "static_instruction_counts": {
+      "vnmsubfp": 24,
+      "vmaddfp": 2888,
+      "fctidz": 439,
+      "vaddfp": 993,
+      "frsp": 4875,
+      "fsubs": 5052,
+      "fmadds": 4844,
+      "fctiwz": 1614,
+      "fctid": 17,
+      "fmsubs": 535,
+      "vmsum3fp128": 903,
+      "vmaddcfp128": 94,
+      "vmaddfp128": 93,
+      "vrfin128": 4,
+      "vrfin": 6,
+      "vaddfp128": 105,
+      "vmsum4fp128": 101,
+      "fmsub": 64,
+      "fmadd": 113,
+      "fsub": 106,
+      "vpkd3d128": 26,
+      "mffs": 5,
+      "mtfsf": 5,
+      "vpkuhus": 6
+    },
+    "vpkd3d128_type_mask_shift": {
+      "5,2,2": 6,
+      "0,1,3": 18,
+      "3,2,2": 1,
+      "3,1,3": 1
+    },
+    "packing_destination_aliases_source": {
+      "vpkd3d128 5,2,2": 5,
+      "vpkd3d128 0,1,3": 9,
+      "vpkuhus": 5,
+      "vpkd3d128 3,2,2": 1
+    }
+  },
+  {
+    "module": "falaise",
+    "static_instruction_counts": {
+      "frsp": 409,
+      "fctiwz": 66,
+      "fsubs": 488,
+      "fmadds": 26,
+      "mtfsf": 5,
+      "mffs": 5,
+      "fctidz": 8,
+      "fmsubs": 3
+    },
+    "vpkd3d128_type_mask_shift": {},
+    "packing_destination_aliases_source": {}
+  },
+  {
+    "module": "forest",
+    "static_instruction_counts": {
+      "frsp": 301,
+      "fsubs": 534,
+      "fctiwz": 58,
+      "fmadds": 25,
+      "mffs": 5,
+      "mtfsf": 5,
+      "fctidz": 8,
+      "fmsubs": 4
+    },
+    "vpkd3d128_type_mask_shift": {},
+    "packing_destination_aliases_source": {}
+  },
+  {
+    "module": "fuelplnt",
+    "static_instruction_counts": {
+      "fsubs": 479,
+      "frsp": 290,
+      "fctiwz": 60,
+      "fmadds": 25,
+      "fctidz": 8,
+      "mffs": 5,
+      "fmsubs": 3,
+      "mtfsf": 5
+    },
+    "vpkd3d128_type_mask_shift": {},
+    "packing_destination_aliases_source": {}
+  },
+  {
+    "module": "hostage",
+    "static_instruction_counts": {
+      "frsp": 306,
+      "fsubs": 478,
+      "fctiwz": 69,
+      "fmadds": 27,
+      "mffs": 5,
+      "mtfsf": 5,
+      "fmsubs": 3,
+      "fctidz": 8
+    },
+    "vpkd3d128_type_mask_shift": {},
+    "packing_destination_aliases_source": {}
+  },
+  {
+    "module": "island",
+    "static_instruction_counts": {
+      "frsp": 363,
+      "fsubs": 537,
+      "fctiwz": 66,
+      "fmsubs": 4,
+      "mffs": 5,
+      "fmadds": 28,
+      "mtfsf": 5,
+      "fctidz": 8
+    },
+    "vpkd3d128_type_mask_shift": {},
+    "packing_destination_aliases_source": {}
+  },
+  {
+    "module": "laison",
+    "static_instruction_counts": {
+      "frsp": 314,
+      "fsubs": 497,
+      "fmadds": 25,
+      "fctiwz": 58,
+      "mtfsf": 5,
+      "fctidz": 8,
+      "fmsubs": 3,
+      "mffs": 5
+    },
+    "vpkd3d128_type_mask_shift": {},
+    "packing_destination_aliases_source": {}
+  },
+  {
+    "module": "mace2",
+    "static_instruction_counts": {
+      "frsp": 328,
+      "fctiwz": 62,
+      "fsubs": 492,
+      "fmadds": 25,
+      "mffs": 5,
+      "mtfsf": 5,
+      "fmsubs": 4,
+      "fctidz": 8
+    },
+    "vpkd3d128_type_mask_shift": {},
+    "packing_destination_aliases_source": {}
+  },
+  {
+    "module": "mayenne",
+    "static_instruction_counts": {
+      "frsp": 316,
+      "fsubs": 482,
+      "fctiwz": 76,
+      "fmadds": 28,
+      "mffs": 5,
+      "mtfsf": 5,
+      "fmsubs": 4,
+      "fctidz": 8
+    },
+    "vpkd3d128_type_mask_shift": {},
+    "packing_destination_aliases_source": {}
+  },
+  {
+    "module": "nightd",
+    "static_instruction_counts": {
+      "frsp": 328,
+      "fsubs": 462,
+      "fctidz": 8,
+      "fctiwz": 60,
+      "fmadds": 25,
+      "mffs": 5,
+      "mtfsf": 5,
+      "fmsubs": 3
+    },
+    "vpkd3d128_type_mask_shift": {},
+    "packing_destination_aliases_source": {}
+  },
+  {
+    "module": "saint_lo",
+    "static_instruction_counts": {
+      "frsp": 395,
+      "fsubs": 497,
+      "fctiwz": 63,
+      "fmadds": 25,
+      "mffs": 5,
+      "mtfsf": 5,
+      "fctidz": 9,
+      "fmsubs": 3
+    },
+    "vpkd3d128_type_mask_shift": {},
+    "packing_destination_aliases_source": {}
+  },
+  {
+    "module": "stbert",
+    "static_instruction_counts": {
+      "frsp": 366,
+      "fctiwz": 65,
+      "fsubs": 478,
+      "fmadds": 31,
+      "mffs": 5,
+      "mtfsf": 5,
+      "fmsubs": 3,
+      "fctidz": 8
+    },
+    "vpkd3d128_type_mask_shift": {},
+    "packing_destination_aliases_source": {}
+  }
+]

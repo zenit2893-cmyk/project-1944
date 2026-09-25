@@ -1,0 +1,28 @@
+# Comparative CPU generation. Only the two opcode-verified thunks are linked.
+# Expected default.xex SHA256:
+# 2944EEC7D1231AD6798B5F9F8ADF8855F5E489296B22EAB45B27A577CEE23692
+[main]
+file_path = "../../game/cod3/default.xex"
+out_directory_path = "../../analysis/title-xenon-generated"
+switch_table_file_path = "../../analysis/xenon-switch-tables.toml"
+skip_lr = false
+skip_msr = false
+ctr_as_local = false
+xer_as_local = false
+reserved_as_local = false
+cr_as_local = false
+non_argument_as_local = false
+non_volatile_as_local = false
+restgprlr_14_address = 0x8234F2B0
+savegprlr_14_address = 0x8234F260
+restfpr_14_address = 0x8234FA1C
+savefpr_14_address = 0x8234F9D0
+restvmx_14_address = 0x8234FD08
+savevmx_14_address = 0x8234FA70
+restvmx_64_address = 0x8234FD9C
+savevmx_64_address = 0x8234FB04
+functions = [
+  { address = 0x822D0498, size = 4 },
+  { address = 0x822D2140, size = 8 },
+]
+invalid_instructions = [{ data = 0x00000000, size = 4 }]

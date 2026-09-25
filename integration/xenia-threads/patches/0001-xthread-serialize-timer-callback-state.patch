@@ -1,0 +1,81 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Codex <codex@openai.com>
+Date: Sun, 13 Sep 2026 16:30:00 +0300
+Subject: [PATCH] system: serialize XTimer callback state
+
+XTimer replaces its callback target and routine while a waitable timer may
+already have a completion APC queued. The old code captured 'this' and read
+those fields later, racing SetTimer/Cancel and allowing a stale timer expiry
+to enqueue the newly installed routine. Serialize timer mutation and capture
+one immutable callback triple for each timer arm.
+
+This is an isolated candidate patch against ReXGlue commit
+0c7b01a0ac0479801757507d80533f662fa0815d. It is intentionally not applied to
+the installed SDK in win-amd64.
+---
+ include/rex/system/xtimer.h |  2 ++
+ src/system/xtimer.cpp       | 13 ++++++++++---
+ 2 files changed, 12 insertions(+), 3 deletions(-)
+
+diff --git a/include/rex/system/xtimer.h b/include/rex/system/xtimer.h
+index c7ce93f..d07721a 100644
+--- a/include/rex/system/xtimer.h
++++ b/include/rex/system/xtimer.h
+@@ -1,4 +1,5 @@
+ #pragma once
++#include <mutex>
+ /**
+  ******************************************************************************
+  * Xenia : Xbox 360 Emulator Research Project                                 *
+@@ -51,6 +52,7 @@ class XTimer : public XObject {
+   XThread* callback_thread_ = nullptr;
+   uint32_t callback_routine_ = 0;
+   uint32_t callback_routine_arg_ = 0;
++  std::mutex timer_lock_;
+ };
+ 
+ }  // namespace rex::system
+diff --git a/src/system/xtimer.cpp b/src/system/xtimer.cpp
+index eabf0ae..a6e51be 100644
+--- a/src/system/xtimer.cpp
++++ b/src/system/xtimer.cpp
+@@ -41,6 +41,7 @@ X_STATUS XTimer::SetTimer(int64_t due_time, uint32_t period_ms, uint32_t routine
+                           uint32_t routine_arg, bool resume) {
+   using rex::chrono::WinSystemClock;
+   using rex::chrono::XSystemClock;
++  std::lock_guard<std::mutex> lock(timer_lock_);
+   // Caller is checking for STATUS_TIMER_RESUME_IGNORED.
+   if (resume) {
+     return X_STATUS_TIMER_RESUME_IGNORED;
+@@ -65,15 +66,20 @@ X_STATUS XTimer::SetTimer(int64_t due_time, uint32_t period_ms, uint32_t routine
+   // This callback will only be issued when the timer is fired.
+   std::function<void()> callback = nullptr;
+   if (callback_routine_) {
+-    callback = [this]() {
++    // Capture the arm's target and routine. A later SetTimer/Cancel must not
++    // change an APC that was already queued for this timer arm.
++    auto* callback_thread = callback_thread_;
++    const uint32_t callback_routine = callback_routine_;
++    const uint32_t callback_routine_arg = callback_routine_arg_;
++    callback = [callback_thread, callback_routine, callback_routine_arg]() {
+       // Queue APC to call back routine with (arg, low, high).
+       // It'll be executed on the thread that requested the timer.
+       uint64_t time = rex::chrono::Clock::QueryGuestSystemTime();
+       uint32_t time_low = static_cast<uint32_t>(time);
+       uint32_t time_high = static_cast<uint32_t>(time >> 32);
+       REXSYS_DEBUG("XTimer enqueuing timer callback to {:08X}({:08X}, {:08X}, {:08X})",
+-                   callback_routine_, callback_routine_arg_, time_low, time_high);
+-      callback_thread_->EnqueueApc(callback_routine_, callback_routine_arg_, time_low, time_high);
++                   callback_routine, callback_routine_arg, time_low, time_high);
++      callback_thread->EnqueueApc(callback_routine, callback_routine_arg, time_low, time_high);
+     };
+   }
+ 
+@@ -89,6 +95,7 @@ X_STATUS XTimer::SetTimer(int64_t due_time, uint32_t period_ms, uint32_t routine
+ }
+ 
+ X_STATUS XTimer::Cancel() {
++  std::lock_guard<std::mutex> lock(timer_lock_);
+   return timer_->Cancel() ? X_STATUS_SUCCESS : X_STATUS_UNSUCCESSFUL;
+ }
+ 

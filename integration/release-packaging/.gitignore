@@ -1,0 +1,5 @@
+# Staging and archives contain local build outputs and must stay out of source control.
+staging/
+artifacts/
+*.zip
+

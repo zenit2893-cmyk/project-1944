@@ -1,0 +1,101 @@
+[
+  {
+    "name": "vmadd",
+    "file": "cod3-pc/generated/default/cod3_pc_recomp.0.cpp",
+    "line": 1520,
+    "instruction": "vmaddfp v12,v2,v10,v9",
+    "function": "sub_820D7070",
+    "file_sha256": "d6327214d2a4aa2d50743730e294efca1a6e3a51d180f91e284f8d6d0dfd2a50",
+    "block_sha256_lf": "4360158bed3847da4a20994e49cc4d31c902ee4461e71478e28a2e86ed0f670b"
+  },
+  {
+    "name": "dot3",
+    "file": "cod3-pc/generated/default/cod3_pc_recomp.10.cpp",
+    "line": 839,
+    "instruction": "vmsum3fp128 v13,v13,v0",
+    "function": "sub_820C4700",
+    "file_sha256": "2751116f9bd04ea34093afb1f68f1f6e179006939b39c9e2c51c5cec056e69f9",
+    "block_sha256_lf": "4dc6e504b4b9ad4e903fea158f2cb17ecb89a45870b612d5e0edaef8e74d6bb3"
+  },
+  {
+    "name": "half4_alias",
+    "file": "cod3-pc/generated/default/cod3_pc_recomp.1.cpp",
+    "line": 17765,
+    "instruction": "vpkd3d128 v0,v0,5,2,2",
+    "function": "sub_82363EF8",
+    "file_sha256": "a3ba9a6fe8362851da690d093ae28a8c7bdf0ed68e1d3e105dd23335f217b2a5",
+    "block_sha256_lf": "355772a152461037cfe066c0f6a8728d4b614a77cd5ae803da73d54bed03cdc7"
+  },
+  {
+    "name": "half2_alias",
+    "file": "cod3-pc/generated/default/cod3_pc_recomp.35.cpp",
+    "line": 8606,
+    "instruction": "vpkd3d128 v0,v0,3,2,2",
+    "function": "sub_82139D98",
+    "file_sha256": "11955c1d9fc02e027f0a2ca2e07ce4e3607724eccf96b485d13b46fb929f5064",
+    "block_sha256_lf": "1326e801c868d2d66cd5048d368323504331589ea283714673d00473877e9e25"
+  },
+  {
+    "name": "half2_distinct",
+    "file": "cod3-pc/generated/default/cod3_pc_recomp.53.cpp",
+    "line": 15173,
+    "instruction": "vpkd3d128 v0,v1,3,1,3",
+    "function": "sub_822EFAE8",
+    "file_sha256": "88b89370963ead46042df2574f7aaf34460e976a80132a8425fec28f39e110cf",
+    "block_sha256_lf": "cb431a69ab8cf3840da870eeeb7ce9c33861fd10ea7b8f3b344029469f11db1c"
+  },
+  {
+    "name": "pack_unsigned_alias",
+    "file": "cod3-pc/generated/default/cod3_pc_recomp.20.cpp",
+    "line": 11168,
+    "instruction": "vpkuhus v0,v0,v13",
+    "function": "sub_82251D38",
+    "file_sha256": "b9690edb1782d2b352494dd73fc2702107f95252edaffe5f6a78b32673c134e0",
+    "block_sha256_lf": "90122bfd6e22a8070baa1a42e3647c4ca10b23eb8337c782799ca079db49a117"
+  },
+  {
+    "name": "fctidz",
+    "file": "cod3-pc/generated/default/cod3_pc_recomp.0.cpp",
+    "line": 1687,
+    "instruction": "fctidz f0,f0",
+    "function": "sub_820E8CA0",
+    "file_sha256": "d6327214d2a4aa2d50743730e294efca1a6e3a51d180f91e284f8d6d0dfd2a50",
+    "block_sha256_lf": "1b3046fa255d5642c821a5c2e9fa45cb67fedd1466fa8f28204a23732ce1bcb0"
+  },
+  {
+    "name": "frsp",
+    "file": "cod3-pc/generated/default/cod3_pc_recomp.13.cpp",
+    "line": 458,
+    "instruction": "frsp f13,f0",
+    "function": "sub_820B3F98",
+    "file_sha256": "94e010c4c96da63b6bc8c66c7972c8c8e49e054c353de3a22cbfa8ab73f78b01",
+    "block_sha256_lf": "06bf6acc55e2bc42b1151687d0057ed9967e12d169f12c434d206f8db81d6d15"
+  },
+  {
+    "name": "dot4",
+    "file": "cod3-pc/generated/default/cod3_pc_recomp.1.cpp",
+    "line": 4305,
+    "instruction": "vmsum4fp128 v0,v0,v7",
+    "function": "sub_8212C700",
+    "file_sha256": "a3ba9a6fe8362851da690d093ae28a8c7bdf0ed68e1d3e105dd23335f217b2a5",
+    "block_sha256_lf": "443752f105eb75b6d9314df146ca9ff86078ad347261bcf2621b5ad2032a26a2"
+  },
+  {
+    "name": "unpack_half2_alias",
+    "file": "cod3-pc/generated/default/cod3_pc_recomp.23.cpp",
+    "line": 16666,
+    "instruction": "vupkd3d128 v0,v0,12",
+    "function": "sub_8231C6C0",
+    "file_sha256": "21905491b1f70c6eed72d2ab2616cde8d88e9fc4e0577f1759dcf7fdc27e9e21",
+    "block_sha256_lf": "b88931b3082cebda0956914911dee5c7626496a01415ffc391584fa7e8028741"
+  },
+  {
+    "name": "unpack_half4_alias",
+    "file": "cod3-pc/generated/default/cod3_pc_recomp.48.cpp",
+    "line": 17983,
+    "instruction": "vupkd3d128 v0,v0,20",
+    "function": "sub_823635F0",
+    "file_sha256": "e08143e00a345754ec83cd36df66e35d51c6cd9dfc6efc22bcc8f5f5e6cf3bf0",
+    "block_sha256_lf": "abbc0c89a5e6c4301397ec73a4e398050c341201d01518ee4ed7d2205db5c1a6"
+  }
+]

@@ -1,0 +1,15 @@
+cmake_minimum_required(VERSION 3.25)
+project(cod3_xenon_bridge_tests LANGUAGES CXX)
+set(CMAKE_CXX_STANDARD 23)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+find_package(rexglue 0.10.0.5 EXACT REQUIRED CONFIG)
+add_subdirectory("${CMAKE_CURRENT_LIST_DIR}/../../integration/xenon" xenon)
+enable_testing()
+add_executable(xenon_bridge_tests test_thunks.cpp)
+cod3_enable_xenon_thunk_overrides(xenon_bridge_tests)
+if(WIN32)
+    add_custom_command(TARGET xenon_bridge_tests POST_BUILD
+        COMMAND "$<$<BOOL:$<TARGET_RUNTIME_DLLS:xenon_bridge_tests>>:${CMAKE_COMMAND};-E;copy_if_different;$<TARGET_RUNTIME_DLLS:xenon_bridge_tests>;$<TARGET_FILE_DIR:xenon_bridge_tests>>"
+        COMMAND_EXPAND_LISTS VERBATIM)
+endif()
+add_test(NAME xenon_bridge_register_and_tailcall COMMAND xenon_bridge_tests)

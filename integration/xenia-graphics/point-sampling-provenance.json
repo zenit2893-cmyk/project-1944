@@ -1,0 +1,23 @@
+{
+  "schema_version": 1,
+  "created_utc": "2026-09-13T13:14:43.746134+00:00",
+  "rexglue_base_commit": "0c7b01a0ac0479801757507d80533f662fa0815d",
+  "xenia_source_commit": "0e1307bd2e6bfeeff29635a6b823e72e61c97ce9",
+  "upstream_fix_commit": "197929d967f587502256fd52c0c5121781fd0e47",
+  "upstream_fix_url": "https://github.com/xenia-canary/xenia-canary/commit/197929d967f587502256fd52c0c5121781fd0e47",
+  "active_sdk_modified": false,
+  "game_launch_performed": false,
+  "files": [
+    {
+      "path": "src/graphics/d3d12/texture_cache.cpp",
+      "base_file_sha256": "72ebe63457e42e1e11354e386635431a4be48a8239b0188bf6e82aaf4b114470",
+      "overlay_file_sha256": "8304f0253a145db0c8b63d98d401814e5433a5943b316ae7649927d2aac83322"
+    },
+    {
+      "path": "include/rex/graphics/d3d12/texture_cache.h",
+      "base_file_sha256": "13573c8c5668eb1167494591b939c86969f50709588707a420a75e1ed205e15f",
+      "overlay_file_sha256": "53156f5642bfcecdfe5b807355e715f8efbbc810d5db270593397a043f587bc7"
+    }
+  ],
+  "patch_sha256": "66e47102b79801e6cb35b96d6228bfa400acef71b3deebe25ebacd7b55d333d3"
+}

@@ -1,0 +1,137 @@
+[tools]
+trufflehog = "latest"
+uv = "latest"
+prek = "latest"
+ruff = "latest"
+bun = "latest"
+taplo = "latest"
+
+[env]
+MISE_NPM_PACKAGE_MANAGER = "bun"
+DO_NOT_TRACK = "1"
+PREK_QUIET = "1"
+
+[settings]
+npm.package_manager = "bun"
+windows_default_inline_shell_args = "powershell -NoProfile -Command"
+python.uv_venv_auto = true
+install_before = "3d"
+
+# Keep tool installation cooldowns enabled through mise. JavaScript package
+# cooldowns are configured in bunfig.toml.
+
+### SETUP TASKS
+[tasks.setup]
+description = "Sync deps and install editable package into venv"
+depends = ["uv-sync-all"]
+run = "uv pip install --editable ."
+
+[tasks.setup-editable]
+description = "Sync deps and install editable package into venv"
+run = "uv pip install --editable ."
+depends = ["uv-sync-all"]
+
+[tasks.setup-hooks]
+description = "Install prek git hooks"
+run = "prek install"
+
+[tasks.hooks-run]
+description = "Run all prek hooks against all files"
+run = "prek run --all-files"
+
+[tasks.hooks-update]
+description = "Update prek hook repos"
+run = "prek autoupdate"
+
+[tasks.uv-sync-all]
+description = "Sync Python deps with uv"
+run = "uv sync --all-extras"
+
+[tasks.uv-lock-refresh]
+description = "Upgrade and refresh the uv lockfile, excluding packages published in the last 3 days"
+run = "uv lock --upgrade --exclude-newer \"$(date -u -d '3 days ago' +%Y-%m-%dT%H:%M:%SZ)\""
+run_windows = "$cutoff = (Get-Date).ToUniversalTime().AddDays(-3).ToString('yyyy-MM-ddTHH:mm:ssZ'); uv lock --upgrade --exclude-newer $cutoff"
+
+### PRE-COMMIT
+[tasks.trufflehog-scan]
+description = "Scan git history for secrets"
+run = "trufflehog git file://. --since-commit=HEAD~1 --no-verification --no-update --fail"
+
+### LINTERS AND FORMATTERS
+[tasks.check]
+description = "Run non-mutating checks"
+depends = ["lint", "test"]
+
+[tasks.format]
+description = "Run all auto-fixes and formatting"
+depends = ["ruff-fix", "ruff-format", "prettier-format", "taplo-format"]
+
+[tasks.lint]
+description = "Run all linters and type checks"
+depends = [
+  "ruff-check",
+  "mypy",
+  "prettier-check",
+  "taplo-check",
+  "pyright-check",
+]
+
+[tasks.ruff-check]
+description = "Check code with ruff"
+run = "uvx ruff check ."
+
+[tasks.ruff-fix]
+description = "Auto-fix ruff lint violations"
+run = "uvx ruff check --fix ."
+
+[tasks.ruff-format]
+description = "Format Python files with ruff"
+run = "uvx ruff format ."
+
+[tasks.mypy]
+description = "Run mypy type checks"
+run = "uvx mypy ."
+
+[tasks.pyright-check]
+description = "Run pyright type checks"
+dir = "{{ config_root }}"                                                                  # Directory containing mise.toml
+run = "bunx pyright --pythonpath \"{{ config_root }}/.venv/bin/python\" ."
+run_windows = "bunx pyright --pythonpath \"{{ config_root }}/.venv/Scripts/python.exe\" ."
+
+[tasks.prettier-format]
+description = "Format Markdown, JSON, and YAML files"
+run = "git ls-files '*.md' '*.json' '*.yaml' '*.yml' | xargs -r bunx prettier --write"
+run_windows = "bunx prettier --write @(git ls-files '*.md' '*.json' '*.yaml' '*.yml')"
+
+[tasks.prettier-check]
+description = "Check Markdown, JSON, and YAML formatting"
+run = "git ls-files -z '*.md' '*.json' '*.yaml' '*.yml' | xargs -0 -r bunx prettier --check"
+run_windows = "bunx prettier --check @(git ls-files '*.md' '*.json' '*.yaml' '*.yml')"
+
+[tasks.taplo-format]
+description = "Format TOML files"
+run = "taplo fmt **/*.toml"
+
+[tasks.taplo-check]
+description = "Check TOML file formatting"
+run = "taplo fmt --check **/*.toml"
+
+### TESTS
+[tasks.test]
+description = "Run fast tests"
+run = "uv run pytest -q"
+
+[tasks.test-most]
+description = "Run most tests including slow_installs but not network_heavy"
+run = "uv run pytest --run-installs -m 'not network_heavy'"
+
+[tasks.test-all]
+description = "Run all tests including integration (downloads ~20GB)"
+run = "uv run pytest --run-installs"
+
+### OTHER
+[tasks.check-venv]
+description = "Verify python resolves inside the project virtualenv"
+dir = "{{ config_root }}"
+run = "case \"$(python -c 'import sys; print(sys.executable)')\" in \"{{ config_root }}\"*) ;; *) echo 'Python not in project venv'; exit 1 ;; esac"
+run_windows = "if (-not ((Get-Command python).Source -like \"*$PWD*\")) { Write-Error 'Python not in venv'; exit 1 }"

@@ -1,0 +1,60 @@
+{
+  "generated_utc": "2026-09-24T18:41:55.337363+00:00",
+  "purpose": "Restore Xenos vertex-fetch out-of-bounds zeroing in the D3D12 shader translator",
+  "symptom": "Call of Duty 3 grass stretched into long streaks (vertices past the buffer read stale memory)",
+  "source_worktree": "D:\\\u0440\u0435\u043a\u043e\u043c\u043f\u0438\u043b\u044f\u0442\u043e\u0440\u044b\\integration\\rexglue-runtime-build\\src",
+  "stage": "D:\\\u0440\u0435\u043a\u043e\u043c\u043f\u0438\u043b\u044f\u0442\u043e\u0440\u044b\\integration\\vfetch-bounds\\source",
+  "file": "src/graphics/pipeline/shader/dxbc_translator_fetch.cpp",
+  "pinned_sha256": "9BBD02D52432FE55EC95D1B6F03A0CBA46AD98A1EE4B974FE1FCAAC4F6C47530",
+  "patched_sha256": "B719018709ECC508C7B315E1BAF850E46C3992BB2F32BF0ECA39A0371BA5D157",
+  "source_kind": "workspace-worktree",
+  "xenia_reference": "tools\\Xenia-source\\src\\xenia\\gpu\\dxbc_shader_translator_fetch.cc",
+  "xenia_reference_sha256": "A328EE997F1A4E50584BF6B4550E1D8D81FD78BA2FA42A7DF15C6E3FFE92B366",
+  "edits_pinned_sdk_source": false,
+  "overlay_files": [
+    {
+      "path": "src/graphics/command_processor.cpp",
+      "sha256": "D71DC3A10D859F4B4E68CC4AF02CD41A8A99C4AF939315A6D20599F43F72BB9C"
+    },
+    {
+      "path": "src/graphics/graphics_system.cpp",
+      "sha256": "3E7067285B04953795C63C19EFEB356DE401FFCCC752D778B7F7835D4E01D7E3"
+    },
+    {
+      "path": "src/graphics/d3d12/command_processor.cpp",
+      "sha256": "4487F549776E43D0BA333F96B53A9F92F5CBD700701F098E83DD224737C1B4C5"
+    },
+    {
+      "path": "src/graphics/d3d12/pipeline_cache.cpp",
+      "sha256": "A5C6D33756780B72B9230E25077B713E06D1F3E923C2F2FF39EFD8AF0528AF33"
+    },
+    {
+      "path": "src/graphics/d3d12/texture_cache.cpp",
+      "sha256": "B66F881C9271562AB98E390BF1EC6782876843AF5A13EA860EB185849605AAF2"
+    },
+    {
+      "path": "src/graphics/pipeline/shader/dxbc_translator_fetch.cpp",
+      "sha256": "B719018709ECC508C7B315E1BAF850E46C3992BB2F32BF0ECA39A0371BA5D157"
+    },
+    {
+      "path": "src/graphics/pipeline/texture/cache.cpp",
+      "sha256": "FA8A7D5FC119A9217103BC9032B7D281EAD462CF265DECFEDB412C717DE11856"
+    },
+    {
+      "path": "include/rex/graphics/cod3_frame_stats.h",
+      "sha256": "992BE5C0DAB7088D48FE0A9F3E7B7AAD6D56F4220584E4366610A124A6EDB32A"
+    },
+    {
+      "path": "include/rex/graphics/cod3_pacing.h",
+      "sha256": "D7EC5A0C0652BCA2F7D10BE4024ADF492011645055A90B8B70BFA6777C6F9300"
+    },
+    {
+      "path": "include/rex/graphics/shared_memory.h",
+      "sha256": "6B11A08B0942CF168DAA11CB1F72AF7F8DC8EF634BC37F8E9D4BA86257FD5E65"
+    },
+    {
+      "path": "include/rex/graphics/d3d12/command_processor.h",
+      "sha256": "CF5A660EF9C696817329566F1F9C9EEFC1025485F9F37D7D4127DF39A7CE04E5"
+    }
+  ]
+}

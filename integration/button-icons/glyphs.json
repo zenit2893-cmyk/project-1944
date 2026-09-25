@@ -1,0 +1,197 @@
+{
+  "atlas_hash": "c6a7991246a29b65",
+  "width": 256,
+  "height": 128,
+  "note": "Rectangles of the controller-button glyphs in the game atlas (coordinates only).",
+  "glyphs": [
+    {
+      "name": "RT",
+      "box": [
+        10,
+        6,
+        42,
+        34
+      ]
+    },
+    {
+      "name": "A",
+      "box": [
+        45,
+        6,
+        73,
+        34
+      ]
+    },
+    {
+      "name": "X",
+      "box": [
+        78,
+        6,
+        106,
+        34
+      ]
+    },
+    {
+      "name": "Y",
+      "box": [
+        111,
+        6,
+        139,
+        34
+      ]
+    },
+    {
+      "name": "B",
+      "box": [
+        144,
+        6,
+        172,
+        34
+      ]
+    },
+    {
+      "name": "LT",
+      "box": [
+        175,
+        6,
+        207,
+        34
+      ]
+    },
+    {
+      "name": "LB",
+      "box": [
+        208,
+        6,
+        240,
+        34
+      ]
+    },
+    {
+      "name": "RB",
+      "box": [
+        1,
+        39,
+        33,
+        67
+      ]
+    },
+    {
+      "name": "DPAD_UP",
+      "box": [
+        36,
+        39,
+        64,
+        67
+      ]
+    },
+    {
+      "name": "DPAD_RIGHT",
+      "box": [
+        69,
+        39,
+        97,
+        67
+      ]
+    },
+    {
+      "name": "DPAD_LEFT",
+      "box": [
+        102,
+        39,
+        130,
+        67
+      ]
+    },
+    {
+      "name": "DPAD_DOWN",
+      "box": [
+        135,
+        38,
+        163,
+        67
+      ]
+    },
+    {
+      "name": "START",
+      "box": [
+        168,
+        39,
+        196,
+        67
+      ]
+    },
+    {
+      "name": "DPAD_LEFTRIGHT",
+      "box": [
+        199,
+        44,
+        231,
+        62
+      ]
+    },
+    {
+      "name": "DPAD_UPDOWN",
+      "box": [
+        8,
+        70,
+        26,
+        102
+      ]
+    },
+    {
+      "name": "DPAD_ALL",
+      "box": [
+        33,
+        69,
+        67,
+        103
+      ]
+    },
+    {
+      "name": "BACK",
+      "box": [
+        69,
+        72,
+        97,
+        100
+      ]
+    },
+    {
+      "name": "LS_PRESS",
+      "box": [
+        100,
+        70,
+        132,
+        102
+      ]
+    },
+    {
+      "name": "RS_PRESS",
+      "box": [
+        133,
+        70,
+        165,
+        102
+      ]
+    },
+    {
+      "name": "LS_MOVE",
+      "box": [
+        166,
+        72,
+        198,
+        102
+      ]
+    },
+    {
+      "name": "RS_MOVE",
+      "box": [
+        199,
+        72,
+        231,
+        102
+      ]
+    }
+  ]
+}

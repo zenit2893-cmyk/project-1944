@@ -1,0 +1,12 @@
+{
+  "schema_version": 1,
+  "recorded_utc": "2026-09-24T18:42:00.4183137Z",
+  "purpose": "Xenos GPU plugin with the restored vertex-fetch out-of-bounds zeroing",
+  "configuration": "RelWithDebInfo",
+  "plugin": "<workspace>\\integration\\vfetch-bounds\\build\\bin\\rexgpu-xenosrd.dll",
+  "plugin_sha256": "E887E8F35DE9A74936269CC603D09067C31FFC3F15105112C81829064C205628",
+  "shipped_plugin_sha256": "5BFBC0BC29C292E5D41D1AD69E9308B8CBE6309C69E1A8F788B14AB3EDA08C50",
+  "runtime_dll": "<workspace>\\tools\\rexglue-patched-sdk\\bin\\rexruntimerd.dll",
+  "fix_receipt": "<workspace>\\integration\\vfetch-bounds\\fix-receipt.json",
+  "staged_to_game": true
+}

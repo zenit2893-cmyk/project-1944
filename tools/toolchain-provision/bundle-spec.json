@@ -1,0 +1,132 @@
+{
+  "schema_version": 1,
+  "purpose": "What the release archive carries so a rebuild needs as little from the network as the licenses allow. Everything listed here is redistributable; MSVC and the Windows SDK are deliberately absent because Microsoft forbids redistributing them.",
+  "alias_note": "LLVM ships one driver binary under several names and picks its behaviour from argv[0]. Storing it once and recreating the other names on install saves about 400 MB: clang/clang++/clang-cl/clang-cpp are the same 103 MB file, as are lld/lld-link/ld.lld and llvm-ar/llvm-lib/llvm-ranlib.",
+  "components": {
+    "llvm": {
+      "source": "tools/toolchain/llvm",
+      "destination": "tools/toolchain/llvm",
+      "probe": "bin/clang-cl.exe",
+      "license": "Apache-2.0 WITH LLVM-exception",
+      "files": [
+        "bin/clang.exe",
+        "bin/lld.exe",
+        "bin/llvm-ar.exe",
+        "bin/llvm-ml.exe",
+        "bin/llvm-nm.exe",
+        "bin/llvm-objcopy.exe",
+        "bin/llvm-readobj.exe",
+        "bin/llvm-symbolizer.exe",
+        "bin/llvm-rc.exe",
+        "bin/llvm-mt.exe",
+        "bin/llvm-cvtres.exe"
+      ],
+      "trees": [
+        "lib/clang"
+      ],
+      "aliases": {
+        "bin/clang++.exe": "bin/clang.exe",
+        "bin/clang-cl.exe": "bin/clang.exe",
+        "bin/clang-cpp.exe": "bin/clang.exe",
+        "bin/lld-link.exe": "bin/lld.exe",
+        "bin/ld.lld.exe": "bin/lld.exe",
+        "bin/llvm-lib.exe": "bin/llvm-ar.exe",
+        "bin/llvm-ranlib.exe": "bin/llvm-ar.exe",
+        "bin/llvm-dlltool.exe": "bin/llvm-ar.exe",
+        "bin/llvm-ml64.exe": "bin/llvm-ml.exe",
+        "bin/llvm-strip.exe": "bin/llvm-objcopy.exe",
+        "bin/llvm-readelf.exe": "bin/llvm-readobj.exe",
+        "bin/llvm-addr2line.exe": "bin/llvm-symbolizer.exe"
+      }
+    },
+    "cmake": {
+      "source": "tools/cmake",
+      "destination": "tools/cmake",
+      "probe": "bin/cmake.exe",
+      "license": "BSD-3-Clause",
+      "files": [
+        "bin/cmake.exe",
+        "bin/cmcldeps.exe"
+      ],
+      "trees": [
+        "share"
+      ],
+      "exclude_trees": [
+        "share/cmake-4.4/Help"
+      ],
+      "aliases": {}
+    },
+    "ninja": {
+      "source": "tools/ninja",
+      "destination": "tools/ninja",
+      "probe": "ninja.exe",
+      "license": "Apache-2.0",
+      "files": [
+        "ninja.exe"
+      ],
+      "trees": [],
+      "aliases": {}
+    },
+    "xdvdfs": {
+      "source": "tools/xdvdfs",
+      "destination": "tools/xdvdfs",
+      "probe": "xdvdfs.exe",
+      "license": "MIT",
+      "files": [
+        "xdvdfs.exe",
+        "LICENSE",
+        "INSTALL.json"
+      ],
+      "trees": [],
+      "aliases": {}
+    },
+    "uv": {
+      "source": "tools/uv",
+      "destination": "tools/uv",
+      "probe": "uv.exe",
+      "license": "MIT OR Apache-2.0",
+      "files": [
+        "uv.exe",
+        "uvx.exe"
+      ],
+      "trees": [],
+      "aliases": {}
+    },
+    "python": {
+      "source": "tools/toolchain/bootstrap-python",
+      "destination": "tools/toolchain/bootstrap-python",
+      "probe": "python.exe",
+      "license": "PSF-2.0",
+      "note": "A relocatable CPython 3.12 (python.exe, its DLLs and standard library, plus PortableMSVC and its dependencies in Lib/site-packages), assembled by tools/toolchain-provision/New-BundledPython.ps1. Deliberately not a virtual environment: a venv names its base interpreter by absolute path and stops with No Python at ... on every other machine. Used by the disc-image analysis, the coroutine map and PortableMSVC.",
+      "files": [],
+      "trees": [
+        "."
+      ],
+      "aliases": {}
+    },
+    "python-packages": {
+      "source": "analysis/title-python",
+      "destination": "analysis/title-python",
+      "probe": "xxhash/__init__.py",
+      "license": "xxhash BSD-2-Clause, cryptography Apache-2.0 OR BSD-3-Clause, capstone BSD-3-Clause",
+      "note": "The two extension modules scripts/analyze-title-image.py imports, staged where its --python-packages default already looks for them.",
+      "files": [],
+      "trees": [
+        "."
+      ],
+      "aliases": {}
+    },
+    "pwsh": {
+      "source": "tools/pwsh",
+      "destination": "tools/pwsh",
+      "probe": "pwsh.exe",
+      "license": "MIT (PowerShell; bundled .NET runtime MIT, see ThirdPartyNotices.txt)",
+      "note": "PowerShell 7.6.5, the official PowerShell-7.6.5-win-x64.zip (SHA-256 32eb8f6cdce08f86e987d625a2733e54ac3e289ae7e1621b14c0b5bcec2434ea, as published in the release's hashes.sha256). Every rebuild step is a PowerShell 7 script; the launcher runs it straight from tools/toolchain-bundle/pwsh, so a machine without PowerShell 7 needs nothing installed.",
+      "files": [],
+      "trees": [
+        "."
+      ],
+      "aliases": {}
+    }
+  }
+}

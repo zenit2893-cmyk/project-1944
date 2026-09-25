@@ -1,0 +1,23 @@
+{
+  "generated_utc": "2026-09-13T13:29:26.0555133Z",
+  "exit_code": 0,
+  "compile_flags": [
+    "-ffp-model=strict",
+    "-fno-strict-aliasing",
+    "-fwrapv"
+  ],
+  "configuration": "RelWithDebInfo, Win64 MSVC ABI",
+  "reference_states": 32,
+  "two_yield_cycles_per_state": true,
+  "root_fiber_modes": [
+    "bridge-owned rex::thread::Fiber conversion",
+    "borrowed XThread::main_fiber rex::thread::Fiber"
+  ],
+  "scope": "Native continuation and adapter compilation tests with synthetic guest bodies and independent original-opcode state fixtures. No game entry executed by the test.",
+  "probe_sha256": "04E0D88C95BDA8F5712F3DFD7B85F8E3D457F9A6E7A9525249AF3AEBEDFCD5D1",
+  "core_dll_sha256": "037A20E54B16F7030F33E01A42833A81886F31919E881E49BE2CADF1BE9EB4C6",
+  "fixture_dll_sha256": "A604964ECE3047AF19A2C77CA02DB950CB47D3834A3A29C14D0731C7879B852B",
+  "independent_fixture_sha256": "FE0D0B75E115171041AC9C508035458FD82EEAE3735639013F1C4A3542159B73",
+  "core_source_sha256": "0E921AA879F60B66F54EDA0D60ACE6A04CF1FF78FEC65834C98888E201001A13",
+  "output": "PASS 32 independent reference states survive two yields/resumes, normal return and nonlocal completion\r\nPASS parked mission cancellation unwinds native frames before unload and preserves scheduler context\r\nPASS unsupported cross-fiber longjmp fails through the scheduler without jumping to a foreign stack\r\nPASS bridge-owned thread-to-fiber conversion is released after all tasks\r\nPASS borrowed SDK-style root fiber survives 32 reference cases and bridge release\r\nPASS test-owned borrowed root cleanup"
+}

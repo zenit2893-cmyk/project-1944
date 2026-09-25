@@ -1,0 +1,43 @@
+AMD DXBC checksum helper (thirdparty/dxbc)
+Copied verbatim from the license header of dxbc/DXBCChecksum.cpp.
+
+// Xenia: removed Windows.h dependency.
+
+//=====================================================================
+// Copyright 2008-2016 (c), Advanced Micro Devices, Inc. All rights reserved.
+//
+/// \author AMD Developer Tools Team
+/// \file DXBCChecksum.cpp
+///
+//=====================================================================
+
+//=====================================================================
+// $Id: //devtools/main/Common/Src/ShaderUtils/DX10/DXBCChecksum.cpp#4 $
+//
+// Last checkin:  $DateTime: 2016/04/18 06:01:26 $
+// Last edited by: $Author:  AMD Developer Tools Team
+//=====================================================================
+// Free for all implementation of the MD5 hash algorithm
+
+/*
+**********************************************************************
+** DXBCChecksum.cpp                                                     **
+**                                                                  **
+** - Modified by Seth Sowerby, November 2007                        **
+**   Modified to match DXBC checksum algorithm used by Microsoft    **
+**                                                                  **
+**********************************************************************
+*/
+
+/*
+**********************************************************************
+** MD5.cpp                                                          **
+**                                                                  **
+** - Style modified by Tony Ray, January 2001                       **
+**   Added support for randomizing initialization constants         **
+** - Style modified by Dominik Reichl, April 2003                   **
+**   Optimized code                                                 **
+**                                                                  **
+**********************************************************************
+*/
+

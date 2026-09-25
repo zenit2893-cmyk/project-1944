@@ -1,0 +1,93 @@
+[project]
+name = "portablemsvc"
+version = "0.3.0"
+description = "Installs Portable MSVC tools in user space"
+readme = "README.md"
+authors = [{ name = "Travis Bender" }]
+requires-python = ">=3.10"
+dependencies = [
+  "requests>=2.32.0,<3.0.0",
+  "filelock>=3.0.0,<4.0.0",
+  "winregenv>=0.2.0,<0.3.0",
+  "plumbum>=1.9.0,<2.0.0",
+  "typer>=0.15.0,<1.0.0",
+  "platformdirs>=4.3.8,<5.0.0",
+  "pefile>=2024.8.26",
+  "psutil>=5.9.0",
+  "python-msi>=0.0.0b3,<0.1.0",
+]
+
+keywords = [
+  "msvc",
+  "visual-studio",
+  "windows-sdk",
+  "compiler",
+  "toolchain",
+  "cli",
+]
+
+license = "MIT"
+license-files = ["LICENSE"]
+
+classifiers = [
+  "Development Status :: 3 - Alpha",
+  "Intended Audience :: Developers",
+  "Intended Audience :: System Administrators",
+  "Operating System :: Microsoft :: Windows",
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3.10",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+  "Topic :: System :: Systems Administration",
+  "Topic :: Software Development :: Libraries :: Python Modules",
+]
+
+[project.urls]
+Homepage = "https://github.com/tgbender/portablemsvc"
+Repository = "https://github.com/tgbender/portablemsvc"
+Issues = "https://github.com/tgbender/portablemsvc/issues"
+Documentation = "https://github.com/tgbender/portablemsvc#readme"
+
+[project.scripts]
+portablemsvc = "portablemsvc.cli:app"
+
+[build-system]
+requires = ["uv_build>=0.11.3,<0.12.0"]
+build-backend = "uv_build"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+python_files = "test_*.py"
+markers = [
+  "slow_install: marks tests that download and install MSVC via CLI (very slow, ~10GB)",
+  "cli: marks tests that invoke portablemsvc CLI",
+  "network_heavy: marks tests that directly download MSVC packages (huge bandwidth, ~10GB)",
+]
+
+[tool.ruff]
+target-version = "py310"
+line-length = 100
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B", "SIM"]
+ignore = [
+  "B008", # typer.Argument/Option in defaults is the intended Typer pattern
+]
+
+[tool.mypy]
+ignore_missing_imports = true
+disable_error_code = ["import-untyped"]
+warn_unused_ignores = true
+
+[tool.pyright]
+pythonVersion = "3.10"
+reportMissingImports = "none"
+reportMissingTypeStubs = "none"
+
+[dependency-groups]
+dev = [
+  "pytest>=9.0.0,<10.0.0",
+  "pytest-mock>=3.14.0,<4.0.0",
+  "mypy>=1.19.1,<2.0.0",
+  "ruff>=0.15.0,<1.0.0",
+]

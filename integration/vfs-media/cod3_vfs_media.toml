@@ -1,0 +1,174 @@
+# Read-only extracted-data mapping for the CoD3 native port.
+#
+# This file is intentionally an isolated integration artifact. It is not
+# included by the active cod3-pc executable until a caller explicitly wires
+# the mapping into its VFS setup.
+
+schema_version = 1
+source_root = "../../game/cod3"
+source_manifest = "../../analysis/disc-file-manifest.csv"
+source_revision = "default.xex sha256 2944EEC7D1231AD6798B5F9F8ADF8855F5E489296B22EAB45B27A577CEE23692"
+read_only = true
+allow_content_fallback = false
+alias_policy = "game-and-partition-only"
+
+[mount]
+physical_path = "\\Device\\Harddisk0\\Partition1"
+game_alias = "game:"
+partition_alias = "d:"
+
+# Xenia-style extracted-XEX convention: mount the directory containing the
+# XEX, then resolve GAME:\foo and D:\foo to the same host root. Case and
+# slash differences are normalized before lookup.
+[[root_mapping]]
+guest = "game:/"
+host = "."
+
+[[root_mapping]]
+guest = "d:/"
+host = "."
+
+[[root_mapping]]
+guest = "\\Device\\Harddisk0\\Partition1\\"
+host = "."
+
+# Exact content roots observed in the 553-file extraction. The lists of
+# selected files live in cod3_vfs_media_map.cpp and are checked by the native
+# test; no asset bytes are copied into this integration directory.
+[[content_root]]
+guest = "d:/config"
+host = "config"
+kind = "configuration"
+
+[[content_root]]
+guest = "d:/media"
+host = "media"
+kind = "font"
+
+[[content_root]]
+guest = "d:/movies"
+host = "movies"
+kind = "video-and-audio"
+
+[[content_root]]
+guest = "d:/sp"
+host = "sp"
+kind = "single-player"
+
+[[content_root]]
+guest = "d:/mp"
+host = "mp"
+kind = "multiplayer"
+
+[inventory]
+expected_files = 553
+expected_directories = 41
+expected_total_bytes = 6193138297
+
+# The resolver does not apply these observations. A caller may only enable a
+# content alias after independently proving the title's language semantics.
+[[content_alias]]
+requested = "d:/movies/legal-us-en.wma"
+candidate = "d:/movies/legal-us.wma"
+enabled = false
+reason = "Candidate exists, but no title-level equivalence has been verified."
+
+[[content_alias]]
+requested = "d:/movies/legal-us-fr.wma"
+candidate = ""
+enabled = false
+reason = "No French source file is present."
+
+[[content_alias]]
+requested = "d:/movies/legal-us-de.wma"
+candidate = ""
+enabled = false
+reason = "No German source file is present."
+
+# Warning paths are recorded as expected misses. This list is evidence for
+# diagnostics, never a success stub or a synthetic file manifest.
+[[expected_missing]]
+guest = "d:/config/language.cfg"
+source = "logs/cod3-pc-run-20260905-100006.log:36"
+
+[[expected_missing]]
+guest = "d:/config/bro.cfg"
+source = "logs/cod3-pc-run-20260905-100006.log:37"
+
+[[expected_missing]]
+guest = "d:/config/autoexec.cfg"
+source = "logs/cod3-pc-run-20260905-100006.log:38"
+
+[[expected_missing]]
+guest = "d:/movies/legal-us-en.wma"
+source = "logs/cod3-pc-run-20260905-100006.log:39-40"
+
+[[expected_missing]]
+guest = "d:/movies/legal-us-fr.wma"
+source = "logs/cod3-pc-run-20260905-100006.log:41"
+
+[[expected_missing]]
+guest = "d:/movies/legal-us-de.wma"
+source = "logs/cod3-pc-run-20260905-100006.log:42"
+
+[[expected_missing]]
+guest = "d:/hunkusage.dat"
+source = "logs/cod3-pc-run-20260905-100006.log:43"
+
+# The title also probes these optional language directories. None is part of
+# this disc extraction, so they remain absent and are not aliased to English.
+[[expected_missing]]
+guest = "d:/_english/"
+source = "logs/cod3-pc-run-20260905-100006.log:32,57"
+
+[[expected_missing]]
+guest = "d:/_french/"
+source = "logs/cod3-pc-run-20260905-100006.log:31,56"
+
+[[expected_missing]]
+guest = "d:/_german/"
+source = "logs/cod3-pc-run-20260905-100006.log:30,55"
+
+[[expected_missing]]
+guest = "d:/_italian/"
+source = "logs/cod3-pc-run-20260905-100006.log:29,54"
+
+[[expected_missing]]
+guest = "d:/_spanish/"
+source = "logs/cod3-pc-run-20260905-100006.log:28,53"
+
+[[expected_missing]]
+guest = "d:/_british/"
+source = "logs/cod3-pc-run-20260905-100006.log:27,52"
+
+[[expected_missing]]
+guest = "d:/_russian/"
+source = "logs/cod3-pc-run-20260905-100006.log:26,51"
+
+[[expected_missing]]
+guest = "d:/_polish/"
+source = "logs/cod3-pc-run-20260905-100006.log:25,50"
+
+[[expected_missing]]
+guest = "d:/_korean/"
+source = "logs/cod3-pc-run-20260905-100006.log:24,49"
+
+[[expected_missing]]
+guest = "d:/_taiwanese/"
+source = "logs/cod3-pc-run-20260905-100006.log:23,48"
+
+[[expected_missing]]
+guest = "d:/_japanese/"
+source = "logs/cod3-pc-run-20260905-100006.log:22,47"
+
+[[expected_missing]]
+guest = "d:/_chinese/"
+source = "logs/cod3-pc-run-20260905-100006.log:21,46"
+
+[[expected_missing]]
+guest = "d:/_thai/"
+source = "logs/cod3-pc-run-20260905-100006.log:20,45"
+
+[[expected_missing]]
+guest = "d:/_leet/"
+source = "logs/cod3-pc-run-20260905-100006.log:19,44"

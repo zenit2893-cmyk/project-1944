@@ -1,0 +1,12 @@
+[submodule "tools/rexglue-source"]
+    path = tools/rexglue-source
+    url = https://github.com/rexglue/rexglue-sdk.git
+[submodule "tools/XenonRecomp"]
+    path = tools/XenonRecomp
+    url = https://github.com/hedge-dev/XenonRecomp.git
+[submodule "tools/XenosRecomp"]
+    path = tools/XenosRecomp
+    url = https://github.com/hedge-dev/XenosRecomp.git
+[submodule "tools/Xenia-source"]
+    path = tools/Xenia-source
+    url = https://github.com/xenia-canary/xenia-canary.git

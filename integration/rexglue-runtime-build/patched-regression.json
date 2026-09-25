@@ -1,0 +1,14 @@
+{
+  "schema":1,
+  "guest_entry_executed":false,
+  "same_heap":true,
+  "main_base":2181038080,
+  "level_base":2298478592,
+  "main_before":{"base":2181038080,"allocation_base":2181038080,"allocation_size":12779520,"region_size":5898240,"state":3,"protect":1},
+  "main_after_level_load":{"base":2181038080,"allocation_base":2181038080,"allocation_size":12779520,"region_size":5898240,"state":3,"protect":1},
+  "level_region":{"base":2298478592,"allocation_base":2298478592,"allocation_size":2490368,"region_size":2424832,"state":3,"protect":1},
+  "main_first_64_bytes_unchanged":true,
+  "overlap_reservation_before":false,
+  "overlap_reservation_after":false,
+  "regression_reproduced":false
+}

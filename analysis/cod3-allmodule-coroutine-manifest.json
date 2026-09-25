@@ -1,0 +1,34 @@
+{
+  "schema_version": 1,
+  "game": "Call of Duty 3 (USA, Europe)",
+  "title_id": "415607E1",
+  "media_id": "2E07093A",
+  "version_raw": "0x00000001",
+  "base_version_raw": "0x00000001",
+  "platform": 0,
+  "disc_number": 1,
+  "disc_count": 1,
+  "container": {
+    "encryption_type": 1,
+    "compression_type": 1,
+    "loader_variant": "retail"
+  },
+  "loader_source_sha256": "AD048F1DB3AFA24BED6989CD44C64A84724C3835B1E5B65FAEBEF36008486E4E",
+  "modules": [
+    {"module": "blkbrn", "path": "game/cod3/sp/blkbrn/blkbrn.dll", "original_pe_name": "blackbaron.xenonf.pe", "source_sha256": "0EDD8D3761F14EF829028B31C35EBDDD4067BAA14618069E0DAD0EA0D579C513", "image_sha256": "B49C0048A8797316C19256E88B817166AE7DB71F7132C41CEF3A993AEB2C1B60", "image_base": "0x89000000", "image_size": 2228224, "entry_point": "0x891FA3E8"},
+    {"module": "chambois", "path": "game/cod3/sp/chambois/chambois.dll", "original_pe_name": "chambois.xenonf.pe", "source_sha256": "09AFAC8DF9109B1AA6212B6791D3E84D9B48B0C02581ED431D009A87A1ED070D", "image_sha256": "E31E2548EB529FFA1876FD7C6BE923668FEF58B99A5E5B9A9B5554C165273E55", "image_base": "0x89000000", "image_size": 2359296, "entry_point": "0x8921AD60"},
+    {"module": "credits", "path": "game/cod3/sp/credits/credits.dll", "original_pe_name": "credits.xenonf.pe", "source_sha256": "3AED2B31E6EA021D68F7BF35FFB12160908C11AD4E5F82BD45A33DDDC63C2C7B", "image_sha256": "F97E8CD2C67C6ECF2EFAFE23239CD964B3E6886CEF547FC375DF961F7546DCB7", "image_base": "0x89000000", "image_size": 2031616, "entry_point": "0x891CE698"},
+    {"module": "crssrds", "path": "game/cod3/sp/crssrds/crssrds.dll", "original_pe_name": "crossroads.xenonf.pe", "source_sha256": "CCA5FF674D8358F41AC8376F624697F5B01531ED40D05082B9EC191C3271595D", "image_sha256": "3401C95A098B37FE7D98FA1A515E13F139E5F11FBD528E2CF5E905C8F4B7D180", "image_base": "0x89000000", "image_size": 2359296, "entry_point": "0x89220088"},
+    {"module": "falaise", "path": "game/cod3/sp/falaise/falaise.dll", "original_pe_name": "falaise_road.xenonf.pe", "source_sha256": "3C025B9ECAD3C33D5F1F526E80E3EEB4AB2A5BF3BB3E1C9B21466569B0B02556", "image_sha256": "409D02D642D408B2742742B85CC42CE38557A37A0BD61AF3069CF103477CF424", "image_base": "0x89000000", "image_size": 2293760, "entry_point": "0x8920DB08"},
+    {"module": "forest", "path": "game/cod3/sp/forest/forest.dll", "original_pe_name": "forest.xenonf.pe", "source_sha256": "B883ACB4DA1B7E2BFBE6450207AACA53DEB094E48D5CF34B675425320A7C7606", "image_sha256": "9D49F21E02C54337EA10E2725F5A3486417D98445103A8BE18C7BC6BCF65D64C", "image_base": "0x89000000", "image_size": 2228224, "entry_point": "0x891FA3C8"},
+    {"module": "fuelplnt", "path": "game/cod3/sp/fuelplnt/fuelplnt.dll", "original_pe_name": "fuelplant.xenonf.pe", "source_sha256": "A38E57F773ABD2FC3E355631A4E725A91FCC023ACA872A99286E23302A62BF57", "image_sha256": "3285D2FD8F9619B1FCFAC360B6834BEEA0211A12FDF562BE44BE439A4C226605", "image_base": "0x89000000", "image_size": 2228224, "entry_point": "0x891FFD68"},
+    {"module": "hostage", "path": "game/cod3/sp/hostage/hostage.dll", "original_pe_name": "hostage.xenonf.pe", "source_sha256": "0BB88A229D221031EA77A9B30B8EC8FD000CDBF1E057FDA8E46A41D65FD6829B", "image_sha256": "129BF36BD31B588B8C3EF52FA15F97615739BB32738F971708F2AC67A61D1DEC", "image_base": "0x89000000", "image_size": 2359296, "entry_point": "0x892153B8"},
+    {"module": "island", "path": "game/cod3/sp/island/island.dll", "original_pe_name": "island.xenonf.pe", "source_sha256": "679A5B58552ABCE1F8EDD80499A56F1CA4480E285734DC2719528400D8CD4A35", "image_sha256": "3191EFC9AAE2EEB403BC17318E175DCB29DCD1D64CF781CAF068C69C6756D683", "image_base": "0x89000000", "image_size": 2424832, "entry_point": "0x89226748"},
+    {"module": "laison", "path": "game/cod3/sp/laison/laison.dll", "original_pe_name": "laisonriver.xenonf.pe", "source_sha256": "CBB29C149839DBD9787D8ACF9BEEB2B802E9298212CDFA821CFD6621A31E7DE3", "image_sha256": "517C6CC50182A80D5923A61BEADF5462BC81069C544FA33B5FE833DC66CA83D3", "image_base": "0x89000000", "image_size": 2359296, "entry_point": "0x89216A18"},
+    {"module": "mace2", "path": "game/cod3/sp/mace2/mace2.dll", "original_pe_name": "mace2.xenonf.pe", "source_sha256": "12839A27CA81159DB009D61306260D579F233E22E69CBAD81701021E070A432F", "image_sha256": "07BA91D880465EB3D671B422A8BE834F64E416A88C1175E50AD582A9281081CD", "image_base": "0x89000000", "image_size": 2555904, "entry_point": "0x89243888"},
+    {"module": "mayenne", "path": "game/cod3/sp/mayenne/mayenne.dll", "original_pe_name": "mayenne_bridge.xenonf.pe", "source_sha256": "48A4C1916E5130467B639286EAF8AD1AE7B58511E0AE44036753089CA9F73C4A", "image_sha256": "E21771FEDC4B2078D06AD63791BF4834F959B3E695715E241B6F2753B71C74D1", "image_base": "0x89000000", "image_size": 2293760, "entry_point": "0x8920CFA8"},
+    {"module": "nightd", "path": "game/cod3/sp/nightd/nightd.dll", "original_pe_name": "nightdrop.xenonf.pe", "source_sha256": "AE2F69D2446FED315F298114BDDB3CBFC2CA79D631497F8254B974FAF79177DA", "image_sha256": "51CA2026A781A6D10A16786827EA97B7C3E5F21C813ADBF5252B6DE6939160E3", "image_base": "0x89000000", "image_size": 2228224, "entry_point": "0x89201B08"},
+    {"module": "saint_lo", "path": "game/cod3/sp/saint_lo/saint_lo.dll", "original_pe_name": "saint_lo.xenonf.pe", "source_sha256": "49E38A116B8F3C5E81C5206FD461496A6DA518CF9427843B38F2CAD33910EF2B", "image_sha256": "B9EC290DBF314955570EFCE7216E1F2209BCC5606A5F7277BF47ADD6E12048C3", "image_base": "0x89000000", "image_size": 2490368, "entry_point": "0x892347A8"},
+    {"module": "stbert", "path": "game/cod3/sp/stbert/stbert.dll", "original_pe_name": "stlambert.xenonf.pe", "source_sha256": "6B294583E22EED4B8675E29CAC1E712179F40222A52720EFA1A81707A8FF5E5A", "image_sha256": "159EB092DA66C7BE4DE8C0845FF5A8DBE3C0CCD238C7719FF13B788B0C547EAF", "image_base": "0x89000000", "image_size": 2293760, "entry_point": "0x89208518"}
+  ]
+}

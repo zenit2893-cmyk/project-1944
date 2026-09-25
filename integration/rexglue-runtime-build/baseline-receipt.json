@@ -1,0 +1,19 @@
+{
+  "started_utc": "2026-09-05T08:41:45.9283018Z",
+  "ended_utc": "2026-09-05T08:41:46.5235884Z",
+  "process_id": 5788,
+  "configuration": "RelWithDebInfo",
+  "executable": "<workspace>\\integration\\rexglue-runtime-build\\probe-build\\runtime_heap_abi_probe.exe",
+  "executable_sha256": "578CB7276F44C603D602D0129A99BE235B400189C43040403409FB627AB9CCD1",
+  "source": "<workspace>\\integration\\rexglue-runtime-probe\\main.cpp",
+  "source_sha256": "134E10351853C8C472E4C1A7F419A37A7D48FBEA642100C44F3608EB4EABDECD",
+  "compiled_against": "Original win-amd64 SDK headers and import library",
+  "requested_runtime": "<workspace>\\win-amd64\\bin\\rexruntimerd.dll",
+  "observed_runtime": "<workspace>\\win-amd64\\bin\\rexruntimerd.dll",
+  "runtime_path_verified": true,
+  "runtime_sha256": "73A7B44ED7054E2F3961C12F3309C9E48163BF3A8757E67E3FB180184E145A8E",
+  "exit_code": 2,
+  "expected_exit_code": 2,
+  "passed": true,
+  "result_path": "<workspace>\\integration\\rexglue-runtime-build\\baseline-regression.json"
+}

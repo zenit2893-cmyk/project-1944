@@ -1,0 +1,341 @@
+{
+  "schema_version": 2,
+  "purpose": "License and provenance inputs copied into the native runtime, full, developer and SDK-source bundles. Every component that is present in a shipped binary or header tree has an entry here; the packaging script refuses to build a bundle whose required entries are missing.",
+  "bundle_notes": {
+    "runtime": "Prebuilt host plus the ReXGlue runtime DLLs.",
+    "developer": "Source tree, and the Full bundle, which additionally carries the pruned ReXGlue SDK under win-amd64/.",
+    "sdk-source": "Corresponding sources shipped to satisfy the LGPL relink right and the GPL source requirement."
+  },
+  "entries": [
+    {
+      "id": "project-license",
+      "source": "LICENSE",
+      "destination": "licenses/project/LICENSE.txt",
+      "bundles": ["runtime", "developer"],
+      "required": true,
+      "license": "BSD-3-Clause"
+    },
+    {
+      "id": "rexglue-license",
+      "source": "tools/rexglue-source/LICENSE",
+      "destination": "licenses/rexglue/LICENSE.txt",
+      "bundles": ["runtime", "developer", "sdk-source"],
+      "required": true,
+      "license": "BSD-3-Clause"
+    },
+    {
+      "id": "xenia-graphics-license",
+      "source": "integration/xenia-graphics/XENIA-LICENSE",
+      "destination": "licenses/xenia/XENIA-LICENSE.txt",
+      "bundles": ["runtime", "developer", "sdk-source"],
+      "required": true,
+      "license": "BSD-3-Clause"
+    },
+    {
+      "id": "xenosrecomp-license",
+      "source": "tools/XenosRecomp/LICENSE.md",
+      "destination": "licenses/xenosrecomp/LICENSE.md",
+      "bundles": ["developer"],
+      "required": true,
+      "license": "MIT"
+    },
+    {
+      "id": "xenosrecomp-xenia-license",
+      "source": "tools/XenosRecomp/XENIA-GRADIENT-LICENSE",
+      "destination": "licenses/xenosrecomp/XENIA-GRADIENT-LICENSE.txt",
+      "bundles": ["developer"],
+      "required": true,
+      "license": "BSD-3-Clause"
+    },
+    {
+      "id": "xenosrecomp-xenia-notice",
+      "source": "tools/XenosRecomp/XENIA-GRADIENT-NOTICE.txt",
+      "destination": "licenses/xenosrecomp/XENIA-GRADIENT-NOTICE.txt",
+      "bundles": ["developer"],
+      "required": true,
+      "license": "BSD-3-Clause"
+    },
+    {
+      "id": "xenonrecomp-license",
+      "source": "tools/XenonRecomp/LICENSE.md",
+      "destination": "licenses/xenonrecomp/LICENSE.md",
+      "bundles": ["developer"],
+      "required": true,
+      "license": "MIT"
+    },
+    {
+      "id": "sdl3-license",
+      "source": "win-amd64/licenses/SDL3/LICENSE.txt",
+      "destination": "licenses/sdl3/LICENSE.txt",
+      "bundles": ["runtime", "developer", "sdk-source"],
+      "required": true,
+      "license": "Zlib"
+    },
+
+    {
+      "id": "ffmpeg-lgpl",
+      "source": "integration/rexglue-runtime-build/src/thirdparty/FFmpeg/COPYING.LGPLv2.1",
+      "destination": "licenses/ffmpeg/COPYING.LGPLv2.1.txt",
+      "bundles": ["runtime", "developer", "sdk-source"],
+      "required": true,
+      "license": "LGPL-2.1-or-later"
+    },
+    {
+      "id": "ffmpeg-license-notes",
+      "source": "integration/rexglue-runtime-build/src/thirdparty/FFmpeg/LICENSE.md",
+      "destination": "licenses/ffmpeg/LICENSE.md",
+      "bundles": ["runtime", "developer", "sdk-source"],
+      "required": true,
+      "license": "LGPL-2.1-or-later"
+    },
+    {
+      "id": "libmspack-lgpl",
+      "source": "integration/rexglue-runtime-build/src/thirdparty/libmspack/libmspack/COPYING.LIB",
+      "destination": "licenses/libmspack/COPYING.LIB.txt",
+      "bundles": ["runtime", "developer", "sdk-source"],
+      "required": true,
+      "license": "LGPL-2.1-only"
+    },
+    {
+      "id": "imgui-license",
+      "source": "integration/rexglue-runtime-build/src/thirdparty/imgui/LICENSE.txt",
+      "destination": "licenses/imgui/LICENSE.txt",
+      "bundles": ["runtime", "developer"],
+      "required": true,
+      "license": "MIT"
+    },
+    {
+      "id": "o1heap-license",
+      "source": "integration/rexglue-runtime-build/src/thirdparty/o1heap/LICENSE",
+      "destination": "licenses/o1heap/LICENSE.txt",
+      "bundles": ["runtime", "developer"],
+      "required": true,
+      "license": "MIT"
+    },
+    {
+      "id": "aes-128-license",
+      "source": "tools/rexglue-source/thirdparty/aes_128/LICENSE",
+      "destination": "licenses/aes-128/LICENSE.txt",
+      "bundles": ["runtime", "developer"],
+      "required": true,
+      "license": "MIT"
+    },
+    {
+      "id": "crypto-des-license",
+      "source": "tools/rexglue-source/thirdparty/crypto/des/LICENSE",
+      "destination": "licenses/crypto-des/LICENSE.txt",
+      "bundles": ["runtime", "developer"],
+      "required": true,
+      "license": "MIT"
+    },
+    {
+      "id": "fmt-license",
+      "source": "integration/release-packaging/licenses-upstream/fmt/LICENSE.txt",
+      "destination": "licenses/fmt/LICENSE.txt",
+      "bundles": ["runtime", "developer"],
+      "required": true,
+      "license": "MIT"
+    },
+    {
+      "id": "spdlog-license",
+      "source": "integration/release-packaging/licenses-upstream/spdlog/LICENSE.txt",
+      "destination": "licenses/spdlog/LICENSE.txt",
+      "bundles": ["runtime", "developer"],
+      "required": true,
+      "license": "MIT"
+    },
+    {
+      "id": "xxhash-license",
+      "source": "integration/release-packaging/licenses-upstream/xxhash/LICENSE.txt",
+      "destination": "licenses/xxhash/LICENSE.txt",
+      "bundles": ["runtime", "developer"],
+      "required": true,
+      "license": "BSD-2-Clause"
+    },
+    {
+      "id": "tracy-license",
+      "source": "integration/release-packaging/licenses-upstream/tracy/LICENSE.txt",
+      "destination": "licenses/tracy/LICENSE.txt",
+      "bundles": ["runtime", "developer"],
+      "required": true,
+      "license": "BSD-3-Clause"
+    },
+    {
+      "id": "tomlplusplus-license",
+      "source": "integration/release-packaging/licenses-upstream/tomlplusplus/LICENSE.txt",
+      "destination": "licenses/tomlplusplus/LICENSE.txt",
+      "bundles": ["runtime", "developer"],
+      "required": true,
+      "license": "MIT"
+    },
+    {
+      "id": "utfcpp-license",
+      "source": "integration/release-packaging/licenses-upstream/utfcpp/LICENSE.txt",
+      "destination": "licenses/utfcpp/LICENSE.txt",
+      "bundles": ["runtime", "developer"],
+      "required": true,
+      "license": "BSL-1.0"
+    },
+    {
+      "id": "simde-license",
+      "source": "integration/release-packaging/licenses-upstream/simde/LICENSE.txt",
+      "destination": "licenses/simde/LICENSE.txt",
+      "bundles": ["runtime", "developer"],
+      "required": true,
+      "license": "MIT"
+    },
+    {
+      "id": "disruptorplus-license",
+      "source": "integration/release-packaging/licenses-upstream/disruptorplus/LICENSE.txt",
+      "destination": "licenses/disruptorplus/LICENSE.txt",
+      "bundles": ["runtime", "developer"],
+      "required": true,
+      "license": "MIT"
+    },
+    {
+      "id": "stb-license",
+      "source": "integration/release-packaging/licenses-upstream/stb/LICENSE.txt",
+      "destination": "licenses/stb/LICENSE.txt",
+      "bundles": ["runtime", "developer"],
+      "required": true,
+      "license": "MIT OR Unlicense"
+    },
+    {
+      "id": "renderdoc-license",
+      "source": "integration/release-packaging/licenses-upstream/renderdoc/LICENSE.txt",
+      "destination": "licenses/renderdoc/LICENSE.txt",
+      "bundles": ["runtime", "developer"],
+      "required": true,
+      "license": "MIT"
+    },
+    {
+      "id": "dxc-license",
+      "source": "integration/release-packaging/licenses-upstream/dxc/LICENSE.txt",
+      "destination": "licenses/dxc/LICENSE.txt",
+      "bundles": ["runtime", "developer"],
+      "required": true,
+      "license": "NCSA (LLVM Release License) with bundled third-party notices"
+    },
+    {
+      "id": "tiny-aes-c-license",
+      "source": "integration/release-packaging/licenses-upstream/tiny-aes-c/LICENSE.txt",
+      "destination": "licenses/tiny-aes-c/LICENSE.txt",
+      "bundles": ["runtime", "developer"],
+      "required": true,
+      "license": "Unlicense"
+    },
+    {
+      "id": "amd-dxbc-notice",
+      "source": "integration/release-packaging/licenses-upstream/amd-dxbc/NOTICE.txt",
+      "destination": "licenses/amd-dxbc/NOTICE.txt",
+      "bundles": ["runtime", "developer"],
+      "required": true,
+      "license": "Permissive, notice preservation (AMD)"
+    },
+    {
+      "id": "crypto-rc4-notice",
+      "source": "integration/release-packaging/licenses-upstream/crypto-rc4/NOTICE.txt",
+      "destination": "licenses/crypto-rc4/NOTICE.txt",
+      "bundles": ["runtime", "developer"],
+      "required": true,
+      "license": "BSD-style (Whistle Communications)"
+    },
+    {
+      "id": "crypto-rijndael-notice",
+      "source": "integration/release-packaging/licenses-upstream/crypto-rijndael/NOTICE.txt",
+      "destination": "licenses/crypto-rijndael/NOTICE.txt",
+      "bundles": ["runtime", "developer"],
+      "required": true,
+      "license": "Public-domain-style (Rijndael reference implementation)"
+    },
+    {
+      "id": "crypto-sha256-notice",
+      "source": "integration/release-packaging/licenses-upstream/crypto-sha256/NOTICE.txt",
+      "destination": "licenses/crypto-sha256/NOTICE.txt",
+      "bundles": ["runtime", "developer"],
+      "required": true,
+      "license": "Zlib"
+    },
+    {
+      "id": "crypto-tinysha1-notice",
+      "source": "integration/release-packaging/licenses-upstream/crypto-tinysha1/NOTICE.txt",
+      "destination": "licenses/crypto-tinysha1/NOTICE.txt",
+      "bundles": ["runtime", "developer"],
+      "required": true,
+      "license": "MIT"
+    },
+    {
+      "id": "microsoft-pe-notice",
+      "source": "integration/release-packaging/licenses-upstream/microsoft-pe/NOTICE.txt",
+      "destination": "licenses/microsoft-pe/NOTICE.txt",
+      "bundles": ["runtime", "developer"],
+      "required": true,
+      "license": "Microsoft PE/COFF structure declarations (headers only)"
+    },
+
+    {
+      "id": "gnu-binutils-notice",
+      "source": "integration/release-packaging/licenses-upstream/gnu-binutils/NOTICE.txt",
+      "destination": "licenses/gnu-binutils/NOTICE.txt",
+      "bundles": ["developer", "sdk-source"],
+      "required": true,
+      "license": "GPL-2.0-or-later"
+    },
+    {
+      "id": "gnu-binutils-gpl",
+      "source": "integration/release-packaging/licenses-upstream/gnu-binutils/COPYING.GPL-2.0.txt",
+      "destination": "licenses/gnu-binutils/COPYING.GPL-2.0.txt",
+      "bundles": ["developer", "sdk-source"],
+      "required": true,
+      "license": "GPL-2.0-or-later"
+    },
+    {
+      "id": "cli11-license",
+      "source": "integration/release-packaging/licenses-upstream/cli11/LICENSE.txt",
+      "destination": "licenses/cli11/LICENSE.txt",
+      "bundles": ["developer", "sdk-source"],
+      "required": true,
+      "license": "BSD-3-Clause"
+    },
+    {
+      "id": "inja-license",
+      "source": "integration/release-packaging/licenses-upstream/inja/LICENSE.txt",
+      "destination": "licenses/inja/LICENSE.txt",
+      "bundles": ["developer", "sdk-source"],
+      "required": true,
+      "license": "MIT"
+    },
+    {
+      "id": "nlohmann-json-license",
+      "source": "integration/release-packaging/licenses-upstream/nlohmann-json/LICENSE.txt",
+      "destination": "licenses/nlohmann-json/LICENSE.txt",
+      "bundles": ["developer", "sdk-source"],
+      "required": true,
+      "license": "MIT"
+    },
+    {
+      "id": "portablemsvc-license",
+      "source": "tools/toolchain-bootstrap/LICENSE",
+      "destination": "licenses/portablemsvc/LICENSE.txt",
+      "bundles": ["developer"],
+      "required": true,
+      "license": "MIT"
+    },
+    {
+      "id": "powershell-license",
+      "source": "tools/pwsh/LICENSE.txt",
+      "destination": "licenses/powershell/LICENSE.txt",
+      "bundles": ["developer"],
+      "required": true,
+      "license": "MIT"
+    },
+    {
+      "id": "powershell-third-party-notices",
+      "source": "tools/pwsh/ThirdPartyNotices.txt",
+      "destination": "licenses/powershell/ThirdPartyNotices.txt",
+      "bundles": ["developer"],
+      "required": true,
+      "license": "MIT and the notices listed in the file (bundled .NET runtime and libraries)"
+    }
+  ]
+}

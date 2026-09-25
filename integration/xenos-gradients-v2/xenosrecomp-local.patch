@@ -1,0 +1,535 @@
+diff --git a/XenosRecomp/main.cpp b/XenosRecomp/main.cpp
+index d015145..af17877 100644
+--- a/XenosRecomp/main.cpp
++++ b/XenosRecomp/main.cpp
+@@ -34,11 +34,23 @@ int main(int argc, char** argv)
+ #ifndef XENOS_RECOMP_INPUT
+     if (argc < 4)
+     {
+-        printf("Usage: XenosRecomp [input path] [output path] [shader common header file path]");
++        printf("Usage: XenosRecomp [input path] [output path] [shader common header file path] "
++            "[--cod3-legacy-container|--cod3-legacy-primary|--cod3-legacy-secondary]");
+         return 0;
+     }
+ #endif
+ 
++    const bool useSecondaryProgram = argc == 5 && strcmp(argv[4], "--cod3-legacy-secondary") == 0;
++    const bool allowCoD3DualProgram = useSecondaryProgram ||
++        (argc == 5 && strcmp(argv[4], "--cod3-legacy-primary") == 0);
++    const bool allowCoD3Legacy = allowCoD3DualProgram ||
++        (argc == 5 && strcmp(argv[4], "--cod3-legacy-container") == 0);
++    if (argc > 4 && !allowCoD3Legacy)
++    {
++        fputs("Unknown option. Use --cod3-legacy-container, --cod3-legacy-primary or --cod3-legacy-secondary.\n", stderr);
++        return 2;
++    }
++
+     const char* input =
+ #ifdef XENOS_RECOMP_INPUT 
+         XENOS_RECOMP_INPUT
+@@ -69,6 +81,11 @@ int main(int argc, char** argv)
+ 
+     if (std::filesystem::is_directory(input))
+     {
++        if (allowCoD3DualProgram)
++        {
++            fputs("Dual-program CoD3 entries require individual file inputs and separate output paths.\n", stderr);
++            return 2;
++        }
+         std::vector<std::unique_ptr<uint8_t[]>> files;
+         std::map<XXH64_hash_t, RecompiledShader> shaders;
+ 
+@@ -88,7 +105,8 @@ int main(int argc, char** argv)
+                 auto shaderContainer = reinterpret_cast<const ShaderContainer*>(fileData.get() + i);
+                 size_t dataSize = shaderContainer->virtualSize + shaderContainer->physicalSize;
+ 
+-                if ((shaderContainer->flags & 0xFFFFFF00) == 0x102A1100 &&
++                if (isSupportedShaderContainer(shaderContainer->flags, allowCoD3Legacy) &&
++                    dataSize >= sizeof(ShaderContainer) &&
+                     dataSize <= (fileSize - i) &&
+                     shaderContainer->field1C == 0 &&
+                     shaderContainer->field20 == 0)
+@@ -121,7 +139,7 @@ int main(int argc, char** argv)
+ 
+                 thread_local ShaderRecompiler recompiler;
+                 recompiler = {};
+-                recompiler.recompile(shader.data, include);
++                recompiler.recompile(shader.data, include, allowCoD3Legacy);
+ 
+                 shader.specConstantsMask = recompiler.specConstantsMask;
+ 
+@@ -211,7 +229,15 @@ int main(int argc, char** argv)
+     {
+         ShaderRecompiler recompiler;
+         size_t fileSize;
+-        recompiler.recompile(readAllBytes(input, fileSize).get(), include);
++        auto shaderData = readAllBytes(input, fileSize);
++        if (fileSize < sizeof(ShaderContainer) ||
++            !isSupportedShaderContainer(reinterpret_cast<const ShaderContainer*>(shaderData.get())->flags, allowCoD3Legacy, allowCoD3DualProgram) ||
++            (useSecondaryProgram && reinterpret_cast<const ShaderContainer*>(shaderData.get())->flags != 0x102A1021))
++        {
++            fputs("Unsupported shader container revision or entry. CoD3 0x102A1021 needs explicit primary/secondary selection.\n", stderr);
++            return 2;
++        }
++        recompiler.recompile(shaderData.get(), include, allowCoD3Legacy, allowCoD3DualProgram, useSecondaryProgram);
+         writeAllBytes(output, recompiler.out.data(), recompiler.out.size());
+     }
+ 
+diff --git a/XenosRecomp/shader.h b/XenosRecomp/shader.h
+index 67968f6..b0135b9 100644
+--- a/XenosRecomp/shader.h
++++ b/XenosRecomp/shader.h
+@@ -104,4 +104,11 @@ struct ShaderContainer
+     be<uint32_t> shaderOffset;
+     be<uint32_t> field1C;
+     be<uint32_t> field20;
+-};
+\ No newline at end of file
++};
++
++inline bool isSupportedShaderContainer(uint32_t flags, bool allowCoD3Legacy = false, bool allowCoD3DualProgram = false)
++{
++    return (flags & 0xFFFFFF00) == 0x102A1100 ||
++        (allowCoD3Legacy && (flags == 0x102A1000 || flags == 0x102A1001 ||
++            (allowCoD3DualProgram && flags == 0x102A1021)));
++}
+diff --git a/XenosRecomp/shader_common.h b/XenosRecomp/shader_common.h
+index 1c74034..3996d80 100644
+--- a/XenosRecomp/shader_common.h
++++ b/XenosRecomp/shader_common.h
+@@ -52,6 +52,101 @@ Texture3D<float4> g_Texture3DDescriptorHeap[] : register(t0, space1);
+ TextureCube<float4> g_TextureCubeDescriptorHeap[] : register(t0, space2);
+ SamplerState g_SamplerDescriptorHeap[] : register(s0, space3);
+ 
++// BEGIN COD3_GRADIENT_HELPERS
++// Algorithms adapted from Xenia's BSD-3-Clause GPU translators. See
++// XENIA-GRADIENT-NOTICE.txt for source revision, copyright and full license.
++// These helpers are also compiled unchanged in the native headless GPU tests.
++float4 getTextureGradientsCoD3(float2 source)
++{
++    float2 horizontal = ddx_coarse(source);
++    float2 vertical = ddy_coarse(source);
++    return float4(horizontal.x, vertical.x, horizontal.y, vertical.y);
++}
++
++// src is the decoded ALU source 0 (.zzxy for an ordinary cube instruction).
++// Return TC, SC, signed twice-major-axis and D3DCUBEMAP_FACES face ID.
++float4 cubeCoD3(float4 src)
++{
++    float3 v = src.zwx;
++    if (abs(v.z) >= abs(v.x) && abs(v.z) >= abs(v.y))
++        return float4(-v.y, v.z < 0.0 ? -v.x : v.x, 2.0 * v.z, v.z < 0.0 ? 5.0 : 4.0);
++    if (abs(v.y) >= abs(v.x))
++        return float4(v.y < 0.0 ? -v.z : v.z, v.x, 2.0 * v.y, v.y < 0.0 ? 3.0 : 2.0);
++    return float4(-v.y, v.x < 0.0 ? v.z : -v.z, 2.0 * v.x, v.x < 0.0 ? 1.0 : 0.0);
++}
++
++// Inverse cube face projection from the shader's (SC, TC in 1..2, face ID).
++// Explicit register gradients already are in cube space and are NOT projected.
++float3 cubeDirectionCoD3(float3 coord)
++{
++    float2 st = coord.xy * 2.0 - 3.0;
++    uint face = min((uint)coord.z, 5u);
++    bool negative = (face & 1u) != 0;
++    switch (face >> 1)
++    {
++    case 0: return float3(negative ? -1.0 : 1.0, -st.y, negative ? st.x : -st.x);
++    case 1: return float3(st.x, negative ? -1.0 : 1.0, negative ? -st.y : st.y);
++    default: return float3(negative ? -st.x : st.x, -st.y, negative ? -1.0 : 1.0);
++    }
++}
++
++// Guest fetch constant word 4: signed LOD bias / 32 in bits 12..21,
++// signed horizontal and vertical exponent adjustments in bits 22..26, 27..31.
++// SampleGrad needs these applied to the supplied derivatives explicitly.
++float2 textureGradientScaleCoD3(uint fetchWord4, float registerAndInstructionLod)
++{
++    int samplerBias = (int)(fetchWord4 << 10) >> 22;
++    int horizontalExponent = (int)(fetchWord4 << 5) >> 27;
++    int verticalExponent = (int)fetchWord4 >> 27;
++    float lod = registerAndInstructionLod + float(samplerBias) * (1.0 / 32.0);
++    return exp2(lod) * exp2(float2(horizontalExponent, verticalExponent));
++}
++
++float4 sample2DGradCoD3(Texture2D<float4> texture, SamplerState samplerState,
++    float2 coord, float3 horizontal, float3 vertical, uint fetchWord4, float lod)
++{
++    float2 scale = textureGradientScaleCoD3(fetchWord4, lod);
++    return texture.SampleGrad(samplerState, coord, horizontal.xy * scale.x, vertical.xy * scale.y);
++}
++
++float4 sampleCubeGradCoD3(TextureCube<float4> texture, SamplerState samplerState,
++    float3 coord, float3 horizontal, float3 vertical, uint fetchWord4, float lod)
++{
++    float2 scale = textureGradientScaleCoD3(fetchWord4, lod);
++    return texture.SampleGrad(samplerState, cubeDirectionCoD3(coord), horizontal * scale.x, vertical * scale.y);
++}
++// END COD3_GRADIENT_HELPERS
++
++#ifdef COD3_LEGACY_SHADER
++// Additional, explicit runtime ABI: 32 raw guest texture fetch-constant word 4
++// values in guest slot order (including slots 16..31 for vertex sampling).
++// The host must upload this 128-byte buffer; zero is not an assumed default.
++cbuffer CoD3TextureFetchConstants : register(b3, space4)
++{
++    uint4 g_CoD3TextureFetchWord4[8];
++};
++
++float4 tfetch2DGradCoD3(uint resourceDescriptorIndex, uint samplerDescriptorIndex,
++    float2 coord, float3 horizontal, float3 vertical, uint fetchWord4, float lod)
++{
++    return sample2DGradCoD3(g_Texture2DDescriptorHeap[resourceDescriptorIndex],
++        g_SamplerDescriptorHeap[samplerDescriptorIndex], coord, horizontal, vertical, fetchWord4, lod);
++}
++
++float4 tfetchCubeGradCoD3(uint resourceDescriptorIndex, uint samplerDescriptorIndex,
++    float3 coord, float3 horizontal, float3 vertical, uint fetchWord4, float lod)
++{
++    return sampleCubeGradCoD3(g_TextureCubeDescriptorHeap[resourceDescriptorIndex],
++        g_SamplerDescriptorHeap[samplerDescriptorIndex], coord, horizontal, vertical, fetchWord4, lod);
++}
++
++float4 tfetchCubeCoD3(uint resourceDescriptorIndex, uint samplerDescriptorIndex, float3 coord)
++{
++    return g_TextureCubeDescriptorHeap[resourceDescriptorIndex].Sample(
++        g_SamplerDescriptorHeap[samplerDescriptorIndex], cubeDirectionCoD3(coord));
++}
++#endif
++
+ uint2 getTexture2DDimensions(Texture2D<float4> texture)
+ {
+     uint2 dimensions;
+@@ -65,6 +160,14 @@ float4 tfetch2D(uint resourceDescriptorIndex, uint samplerDescriptorIndex, float
+     return texture.Sample(g_SamplerDescriptorHeap[samplerDescriptorIndex], texCoord + offset / getTexture2DDimensions(texture));
+ }
+ 
++// Explicit register LOD used by CoD3 grass vertex programs. Runtime texture
++// fetch/sampler state (including LOD bias and clamp) must still match the guest.
++float4 tfetch2DLevel(uint resourceDescriptorIndex, uint samplerDescriptorIndex, float2 texCoord, float2 offset, float lod)
++{
++    Texture2D<float4> texture = g_Texture2DDescriptorHeap[resourceDescriptorIndex];
++    return texture.SampleLevel(g_SamplerDescriptorHeap[samplerDescriptorIndex], texCoord + offset / getTexture2DDimensions(texture), lod);
++}
++
+ float2 getWeights2D(uint resourceDescriptorIndex, uint samplerDescriptorIndex, float2 texCoord, float2 offset)
+ {
+     Texture2D<float4> texture = g_Texture2DDescriptorHeap[resourceDescriptorIndex];
+diff --git a/XenosRecomp/shader_recompiler.cpp b/XenosRecomp/shader_recompiler.cpp
+index 698a418..8dec8a4 100644
+--- a/XenosRecomp/shader_recompiler.cpp
++++ b/XenosRecomp/shader_recompiler.cpp
+@@ -193,7 +193,11 @@ void ShaderRecompiler::recompile(const VertexFetchInstruction& instr, uint32_t a
+         break;
+     }
+ 
+-    print("i{}{}", USAGE_VARIABLES[uint32_t(findResult->second.usage)], uint32_t(findResult->second.usageIndex));
++    auto inputName = vertexInputNames.find(address);
++    if (inputName != vertexInputNames.end())
++        out += inputName->second;
++    else
++        print("i{}{}", USAGE_VARIABLES[uint32_t(findResult->second.usage)], uint32_t(findResult->second.usageIndex));
+ 
+     switch (findResult->second.usage)
+     {
+@@ -225,7 +229,34 @@ void ShaderRecompiler::recompile(const VertexFetchInstruction& instr, uint32_t a
+ 
+ void ShaderRecompiler::recompile(const TextureFetchInstruction& instr, bool bicubic)
+ {
+-    if (instr.opcode != FetchOpcode::TextureFetch && instr.opcode != FetchOpcode::GetTextureWeights)
++    const bool setLegacyLod = isLegacyCoD3Container && instr.opcode == FetchOpcode::SetTextureLod;
++    const bool getLegacyGrad = isLegacyCoD3Container && instr.opcode == FetchOpcode::GetTextureGradients;
++    const bool setLegacyGradH = isLegacyCoD3Container && instr.opcode == FetchOpcode::SetTextureGradientsHorz;
++    const bool setLegacyGradV = isLegacyCoD3Container && instr.opcode == FetchOpcode::SetTextureGradientsVert;
++    const bool explicitLegacyGrad = isLegacyCoD3Container && instr.opcode == FetchOpcode::TextureFetch && instr.useRegGradients;
++    if (getLegacyGrad || setLegacyGradH || setLegacyGradV || explicitLegacyGrad)
++    {
++        // Xenia ucode.h and dxbc_shader_translator_fetch.cc, pinned in
++        // XENIA-GRADIENT-NOTICE.txt. Do not silently lower unhandled variants.
++        if (instr.srcRegisterAm || (getLegacyGrad && instr.dstRegisterAm) ||
++            (getLegacyGrad && !isPixelShader) ||
++            (explicitLegacyGrad && (instr.dstRegisterAm || !instr.useCompLod || instr.texCoordDenorm ||
++                instr.offsetX || instr.offsetY || instr.offsetZ || instr.mipFilter == 2 ||
++                (instr.dimension != TextureDimension::Texture2D && instr.dimension != TextureDimension::TextureCube))))
++        {
++            fputs("CoD3 semantic gap: unsupported texture-gradient addressing/dimension/LOD/offset variant.\n", stderr);
++            out += "#error Unsupported_CoD3_texture_gradient_variant\n";
++            return;
++        }
++        if (explicitLegacyGrad && !reportedLegacyGradientState)
++        {
++            fputs("CoD3 gradient contract: bind guest fetch-constant word 4 for all 32 slots at b3/space4; "
++                "sampler filtering, clamp and base-map state still require runtime binding.\n", stderr);
++            reportedLegacyGradientState = true;
++        }
++    }
++    if (instr.opcode != FetchOpcode::TextureFetch && instr.opcode != FetchOpcode::GetTextureWeights &&
++        !setLegacyLod && !getLegacyGrad && !setLegacyGradH && !setLegacyGradV)
+         return;
+ 
+     if (instr.isPredicated)
+@@ -241,11 +272,48 @@ void ShaderRecompiler::recompile(const TextureFetchInstruction& instr, bool bicu
+     auto printSrcRegister = [&](size_t componentCount)
+         {
+             print("r{}.", instr.srcRegister);
+-
+             for (size_t i = 0; i < componentCount; i++)
+-                out += SWIZZLES[((instr.srcSwizzle >> (i * 2))) & 0x3];
++                out += SWIZZLES[(instr.srcSwizzle >> (i * 2)) & 0x3];
+         };
+ 
++    if (setLegacyLod || setLegacyGradH || setLegacyGradV || getLegacyGrad)
++    {
++        if (getLegacyGrad)
++        {
++            // Source has two components regardless of the instruction's dimension.
++            // Destination XZ contains horizontal and YW vertical coarse derivatives.
++            bool hasVariableWrite = false;
++            for (uint32_t i = 0; i < 4; ++i)
++                hasVariableWrite |= getDestSwizzle(instr.dstSwizzle, i) <= FetchDestinationSwizzle::W;
++            if (hasVariableWrite)
++            {
++                indent();
++                print("r{}.", instr.dstRegister);
++                printDstSwizzle(instr.dstSwizzle, false);
++                out += " = getTextureGradientsCoD3(";
++                printSrcRegister(2);
++                out += ").";
++                printDstSwizzle(instr.dstSwizzle, true);
++                out += ";\n";
++            }
++            printDstSwizzle01(instr.dstRegister, instr.dstSwizzle);
++        }
++        else
++        {
++            indent();
++            print("{} = ", setLegacyLod ? "texLod" : setLegacyGradH ? "texGradH" : "texGradV");
++            printSrcRegister(setLegacyLod ? 1 : 3);
++            out += ";\n";
++        }
++        if (instr.isPredicated)
++        {
++            --indentation;
++            indent();
++            out += "}\n";
++        }
++        return;
++    }
++
+     std::string constName;
+     const char* constNamePtr = nullptr;
+ #ifdef UNLEASHED_RECOMP
+@@ -325,6 +393,14 @@ void ShaderRecompiler::recompile(const TextureFetchInstruction& instr, bool bicu
+     }
+ 
+     out += dimension;
++    const bool explicitLegacyLod = isLegacyCoD3Container && instr.opcode == FetchOpcode::TextureFetch &&
++        instr.dimension == TextureDimension::Texture2D && instr.useRegLod && !instr.useCompLod && !instr.useRegGradients;
++    if (explicitLegacyLod)
++        out += "Level";
++    if (explicitLegacyGrad)
++        out += "GradCoD3";
++    else if (isLegacyCoD3Container && instr.opcode == FetchOpcode::TextureFetch && instr.dimension == TextureDimension::TextureCube)
++        out += "CoD3";
+ 
+ #ifdef UNLEASHED_RECOMP
+     if (bicubic)
+@@ -337,12 +413,23 @@ void ShaderRecompiler::recompile(const TextureFetchInstruction& instr, bool bicu
+     switch (instr.dimension)
+     {
+     case TextureDimension::Texture2D:
+-        print(", float2({}, {})", instr.offsetX * 0.5f, instr.offsetY * 0.5f);
++        if (!explicitLegacyGrad)
++            print(", float2({}, {})", instr.offsetX * 0.5f, instr.offsetY * 0.5f);
++        if (explicitLegacyLod)
++            print(", texLod + {}", instr.lodBias * (1.0f / 16.0f));
+         break;
+     case TextureDimension::TextureCube:
+-        out += ", cubeMapData";
++        if (!isLegacyCoD3Container)
++            out += ", cubeMapData";
+         break;
+     }
++    if (explicitLegacyGrad)
++    {
++        print(", texGradH, texGradV, g_CoD3TextureFetchWord4[{}].{}, ", instr.constIndex / 4, SWIZZLES[instr.constIndex % 4]);
++        if (instr.useRegLod)
++            out += "texLod + ";
++        print("{}", instr.lodBias * (1.0f / 16.0f));
++    }
+ 
+     out += ").";
+ 
+@@ -518,6 +605,7 @@ void ShaderRecompiler::recompile(const AluInstruction& instr)
+ 
+                 case AluVectorOpcode::Dp4:
+                 case AluVectorOpcode::Max4:
++                case AluVectorOpcode::Cube:
+                     mask = 0b1111;
+                     break;
+ 
+@@ -764,7 +852,10 @@ void ShaderRecompiler::recompile(const AluInstruction& instr)
+             break;
+ 
+         case AluVectorOpcode::Cube:
+-            print("cube(r{}, cubeMapData)", instr.src1Register);
++            if (isLegacyCoD3Container)
++                print("cubeCoD3({})", op(VECTOR_0));
++            else
++                print("cube(r{}, cubeMapData)", instr.src1Register);
+             break;
+ 
+         case AluVectorOpcode::Max4:
+@@ -1098,18 +1189,24 @@ void ShaderRecompiler::recompile(const AluInstruction& instr)
+     }
+ }
+ 
+-void ShaderRecompiler::recompile(const uint8_t* shaderData, const std::string_view& include)
++void ShaderRecompiler::recompile(const uint8_t* shaderData, const std::string_view& include, bool allowCoD3Legacy,
++    bool allowCoD3DualProgram, bool useSecondaryProgram)
+ {
+     const auto shaderContainer = reinterpret_cast<const ShaderContainer*>(shaderData);
+ 
+-    assert((shaderContainer->flags & 0xFFFFFF00) == 0x102A1100);
++    assert(isSupportedShaderContainer(shaderContainer->flags, allowCoD3Legacy, allowCoD3DualProgram));
++    assert(!useSecondaryProgram || shaderContainer->flags == 0x102A1021);
+     assert(shaderContainer->constantTableOffset != NULL);
+ 
++    isPixelShader = (shaderContainer->flags & 0x1) == 0;
++    const bool legacyContainer = allowCoD3Legacy &&
++        (shaderContainer->flags & 0xFFFFFF00) == 0x102A1000;
++    isLegacyCoD3Container = legacyContainer;
++    if (legacyContainer)
++        out += "#define COD3_LEGACY_SHADER 1\n#define COD3_TEXTURE_GRADIENT_SEMANTICS 1\n";
+     out += include;
+     out += '\n';
+ 
+-    isPixelShader = (shaderContainer->flags & 0x1) == 0;
+-
+     const auto constantTableContainer = reinterpret_cast<const ConstantTableContainer*>(shaderData + shaderContainer->constantTableOffset);
+     constantTableData = reinterpret_cast<const uint8_t*>(&constantTableContainer->constantTable);
+ 
+@@ -1180,7 +1277,9 @@ void ShaderRecompiler::recompile(const uint8_t* shaderData, const std::string_vi
+             println("#define {}_SamplerDescriptorIndex vk::RawBufferLoad<uint>(g_PushConstants.SharedConstants + {})",
+                 constantName, std::size(TEXTURE_DIMENSIONS) * 64 + constantInfo->registerIndex * 4);
+ 
+-            samplers.emplace(constantInfo->registerIndex, constantName);
++            // Legacy CoD3 vertex microcode uses texture slots 16..31 while
++            // reflection numbers those samplers from zero.
++            samplers.emplace(constantInfo->registerIndex + (legacyContainer && !isPixelShader ? 16 : 0), constantName);
+             break;
+         }
+ 
+@@ -1255,13 +1354,15 @@ void ShaderRecompiler::recompile(const uint8_t* shaderData, const std::string_vi
+         {
+             const char* constantName = reinterpret_cast<const char*>(constantTableData + constantInfo->name);
+             println("\t#define {} (1 << {})", constantName, constantInfo->registerIndex + (isPixelShader ? 16 : 0));
+-            boolConstants.emplace(constantInfo->registerIndex, constantName);
++            // Pixel boolean references use the second 128-register bank.
++            boolConstants.emplace(constantInfo->registerIndex + (legacyContainer && isPixelShader ? 128 : 0), constantName);
+         }
+     }
+ 
+     out += '\n';
+ 
+-    const auto shader = reinterpret_cast<const Shader*>(shaderData + shaderContainer->shaderOffset);
++    const uint32_t shaderOffset = useSecondaryProgram ? shaderContainer->field20.get() : shaderContainer->shaderOffset.get();
++    const auto shader = reinterpret_cast<const Shader*>(shaderData + shaderOffset);
+ 
+     out += "#ifndef __spirv__\n";
+ 
+@@ -1324,17 +1425,30 @@ void ShaderRecompiler::recompile(const uint8_t* shaderData, const std::string_vi
+ 
+             out += '\t';
+ 
+-            for (auto& usageLocation : USAGE_LOCATIONS)
++            if (legacyContainer)
+             {
+-                if (usageLocation.usage == vertexElement.usage && usageLocation.usageIndex == vertexElement.usageIndex)
++                // CoD3 may repeat POSITION0/NORMAL0 for distinct fetch addresses.
++                // Keep every input and expose an explicit host binding map.
++                println("// COD3_FETCH address={} usage={} usage_index={} location={}",
++                    uint32_t(vertexElement.address), uint32_t(vertexElement.usage), uint32_t(vertexElement.usageIndex), i);
++                println("\t[[vk::location({0})]] in {1} iFetch{2} : FETCH{2},",
++                    i, usageType, uint32_t(vertexElement.address));
++                vertexInputNames.emplace(uint32_t(vertexElement.address), fmt::format("iFetch{}", uint32_t(vertexElement.address)));
++            }
++            else
++            {
++                for (auto& usageLocation : USAGE_LOCATIONS)
+                 {
+-                    print("[[vk::location({})]] ", usageLocation.location);
+-                    break;
++                    if (usageLocation.usage == vertexElement.usage && usageLocation.usageIndex == vertexElement.usageIndex)
++                    {
++                        print("[[vk::location({})]] ", usageLocation.location);
++                        break;
++                    }
+                 }
+-            }
+ 
+-            println("in {0} i{1}{2} : {3}{2},", usageType, USAGE_VARIABLES[uint32_t(vertexElement.usage)],
+-                uint32_t(vertexElement.usageIndex), USAGE_SEMANTICS[uint32_t(vertexElement.usage)]);
++                println("in {0} i{1}{2} : {3}{2},", usageType, USAGE_VARIABLES[uint32_t(vertexElement.usage)],
++                    uint32_t(vertexElement.usageIndex), USAGE_SEMANTICS[uint32_t(vertexElement.usage)]);
++            }
+ 
+             vertexElements.emplace(uint32_t(vertexElement.address), vertexElement);
+         }
+@@ -1371,10 +1485,16 @@ void ShaderRecompiler::recompile(const uint8_t* shaderData, const std::string_vi
+     }
+ #endif
+ 
+-    if (shaderContainer->definitionTableOffset != NULL)
++    const uint32_t definitionTableOffset = useSecondaryProgram
++        ? shaderContainer->field1C.get() : shaderContainer->definitionTableOffset.get();
++    if (definitionTableOffset != NULL)
+     {
+-        auto definitionTable = reinterpret_cast<const DefinitionTable*>(shaderData + shaderContainer->definitionTableOffset);
+-        auto definitions = definitionTable->definitions;
++        auto definitionTable = reinterpret_cast<const DefinitionTable*>(shaderData + definitionTableOffset);
++        // The Xbox shader compiler 2.0.3424.0 containers observed in CoD3 have
++        // an eight-word definition header; the newer upstream format has five.
++        auto definitions = legacyContainer
++            ? reinterpret_cast<const be<uint32_t>*>(reinterpret_cast<const uint8_t*>(definitionTable) + 0x20)
++            : definitionTable->definitions;
+         while (*definitions != 0)
+         {
+             auto definition = reinterpret_cast<const Float4Definition*>(definitions);
+@@ -1483,6 +1603,13 @@ void ShaderRecompiler::recompile(const uint8_t* shaderData, const std::string_vi
+     out += "\tint aL = 0;\n";
+     out += "\tbool p0 = false;\n";
+     out += "\tfloat ps = 0.0;\n";
++    if (legacyContainer)
++    {
++        out += "\tfloat texLod = 0.0;\n";
++        // Like Xenia, registers persist across fetch instructions and predication.
++        // A valid program sets the explicit gradients before sampling with them.
++        out += "\tfloat3 texGradH;\n\tfloat3 texGradV;\n";
++    }
+     if (isPixelShader)
+     {
+ #ifdef UNLEASHED_RECOMP
+diff --git a/XenosRecomp/shader_recompiler.h b/XenosRecomp/shader_recompiler.h
+index b2e317d..84d2cb9 100644
+--- a/XenosRecomp/shader_recompiler.h
++++ b/XenosRecomp/shader_recompiler.h
+@@ -25,8 +25,11 @@ struct ShaderRecompiler : StringBuffer
+ {
+     uint32_t indentation = 0;
+     bool isPixelShader = false;
++    bool isLegacyCoD3Container = false;
++    bool reportedLegacyGradientState = false;
+     const uint8_t* constantTableData = nullptr;
+     std::unordered_map<uint32_t, VertexElement> vertexElements;
++    std::unordered_map<uint32_t, std::string> vertexInputNames;
+     std::unordered_map<uint32_t, std::string> interpolators;
+     std::unordered_map<uint32_t, const ConstantInfo*> float4Constants;
+     std::unordered_map<uint32_t, const char*> boolConstants;
+@@ -52,5 +55,6 @@ struct ShaderRecompiler : StringBuffer
+     void recompile(const TextureFetchInstruction& instr, bool bicubic);
+     void recompile(const AluInstruction& instr);
+ 
+-    void recompile(const uint8_t* shaderData, const std::string_view& include);
++    void recompile(const uint8_t* shaderData, const std::string_view& include, bool allowCoD3Legacy = false,
++        bool allowCoD3DualProgram = false, bool useSecondaryProgram = false);
+ };

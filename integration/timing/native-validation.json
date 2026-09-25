@@ -1,0 +1,55 @@
+{
+  "state": "NATIVE_STUB_PASSTHROUGH_AND_SCHEMA_TESTS_PASSED",
+  "gameplay_120fps_verified": false,
+  "integration_into_cod3_pc_performed_by_this_agent": false,
+  "compiler": "Clang 22.1.8",
+  "build_type": "Release",
+  "ctest_cases": 1,
+  "native_logical_cases": [
+    "disabled_passthrough",
+    "enabled_passthrough",
+    "nested_calls",
+    "exception_propagation",
+    "eight_threads",
+    "record_cap",
+    "invalid_configuration_passthrough"
+  ],
+  "stub_function_invocations": 3638,
+  "native_receipt": "<workspace>\\integration\\timing\\build\\test-artifacts\\native-stubs-21140\\native-test-result.json",
+  "trace_schema": "cod3-candidate-observation-v1",
+  "summary_results": [
+    {
+      "trace": "<workspace>\\integration\\timing\\build\\test-artifacts\\native-stubs-21140\\traces\\cod3-candidate-21140-1528020980078-0.ndjson",
+      "trace_sha256": "d7ecbf5b3c148cbeb7a666b72884c01d334c5d00eea6056bbfd6db3845b511f0",
+      "matched_calls": 133,
+      "exception_unwinds": 3,
+      "dropped_records": 0,
+      "capture_complete_declared": true
+    },
+    {
+      "trace": "<workspace>\\integration\\timing\\build\\test-artifacts\\native-stubs-21140\\traces\\cod3-candidate-21140-1528021070047-0.ndjson",
+      "trace_sha256": "8753c757664aebcd6dfbdbc94619cd5532d740c6b226ee774d6cdbe803aa52a4",
+      "matched_calls": 943,
+      "exception_unwinds": 0,
+      "dropped_records": 774,
+      "capture_complete_declared": false
+    },
+    {
+      "trace": "<workspace>\\integration\\timing\\build\\test-artifacts\\native-stubs-21140\\traces\\cod3-candidate-21140-1528021099650-0.ndjson",
+      "trace_sha256": "5c9559ce2075c56a8b96587309a5b38b273fa100e336fac7eca6e40dce9fb30e",
+      "matched_calls": 3,
+      "exception_unwinds": 0,
+      "dropped_records": 0,
+      "capture_complete_declared": false
+    }
+  ],
+  "source_sha256": {
+    "candidate_observer.cpp": "1c6061dbc6ff1b638a31f81aed90149d83350bb78acca75f968d503042f9d89a",
+    "candidate_observer.h": "a9d0a21d44eff66c966a71c8928366b8b707e0dd8352773af9b00b5e582e6aae",
+    "override_hooks.cpp": "c074e957105858a9551c2c5cf6961473afbeb0ce11e366a946bda459ba73fd14",
+    "tests\\passthrough_test.cpp": "e010c2a5341a5fb7f2054052e31e54cb7f2f88ec2715c67d6dcfbeaa1c64dc78",
+    "CMakeLists.txt": "ce4f2b70e1fdaac79a0f15ccf1933f3e478190d78fdd941c579ad4a1eddc5e1c",
+    "summarize_observations.py": "7c930984ff2424027d92ce64f47aab9ceed7a8d19af23aa5dd201989dfc17a11"
+  },
+  "scope": "Artificial native reference stubs only. Real game hooks not yet exercised. No FPS unlock or guest clock changes."
+}

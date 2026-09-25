@@ -1,0 +1,44 @@
+{
+  "schema_version": 1,
+  "native_targets": {
+    "executable": "cod3_pc.exe",
+    "title_dll_count": 15,
+    "title_dll_prefix": "cod3_pc_",
+    "required_direct_imports": [
+      "cod3_coroutines.dll",
+      "rexruntimerd.dll"
+    ],
+    "machine": "AMD64",
+    "subsystem": "Windows GUI"
+  },
+  "allowed_runtime": [
+    "ReXGlue generated PPC C++",
+    "ReXGlue runtime",
+    "ReXGlue Xenos GPU plugin",
+    "ReXGlue coroutine helper",
+    "XenonRecomp: two receipt-backed branch thunks only"
+  ],
+  "xenia_boundary": {
+    "allowed": [
+      "source-level D3D12/GPU algorithm or semantic adaptation",
+      "isolated compile-only OBJECT target",
+      "source and license provenance receipts"
+    ],
+    "forbidden_in_app": [
+      "xenia_canary.exe",
+      "Xenia emulator DLL dependency",
+      "guest CPU translator/JIT",
+      "integration/xenia-kernel/candidate"
+    ],
+    "active_sdk_modified": false
+  },
+  "proof_model": {
+    "pe": true,
+    "ninja_link_graph": true,
+    "generated_source_lists": true,
+    "source_provenance": true,
+    "runtime_execution": false,
+    "gameplay_correctness": false,
+    "fps_120_physics_invariance": false
+  }
+}

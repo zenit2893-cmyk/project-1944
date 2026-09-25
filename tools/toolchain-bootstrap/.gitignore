@@ -1,0 +1,614 @@
+### Polyglot: Editor/OS/Tooling Independent ###
+# General OS Generated Files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+.localized
+
+# General Backup & Temp Files
+*~
+*.swp
+*.swo
+*.bak
+*.tmp
+*.log
+
+# Environment variables
+.env
+.env.*
+!.env.example
+
+# Build outputs
+build/
+dist/
+out/
+target/
+
+# Package managers & Dependencies
+node_modules/
+bower_components/
+jspm_packages/
+web_modules/
+__pypackages__/
+
+# Caches
+.cache/
+.parcel-cache/
+*.tsbuildinfo
+.eslintcache
+.stylelintcache
+.npm/
+.yarn/
+
+# Logs & Reports
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+lerna-debug.log*
+.pnpm-debug.log*
+report.[0-9]*.[0-9]*.[0-9]*.[0-9]*.json
+hs_err_pid*
+replay_pid*
+
+# Runtime data
+pids/
+*.pid
+*.seed
+*.pid.lock
+
+# Terraform
+.terraform/
+.terraform.tfstate.lock.info
+.terraformrc
+terraform.rc
+*.tfstate
+*.tfstate.*
+*.tfvars
+*.tfvars.json
+override.tf
+override.tf.json
+*_override.tf
+*_override.tf.json
+crash.log
+crash.*.log
+
+# ---
+### IDE & Editor Config ###
+
+# JetBrains IDEs (IntelliJ, PyCharm, WebStorm, etc.)
+# User-specific settings
+
+# JetBrains IDEs
+.idea/
+
+
+.idea/**/workspace.xml
+.idea/**/tasks.xml
+.idea/**/usage.statistics.xml
+.idea/**/dictionaries
+.idea/**/shelf
+
+# AWS User-specific
+.idea/**/aws.xml
+
+# Generated files
+.idea/**/contentModel.xml
+
+# Sensitive or high-churn files
+.idea/**/dataSources/
+.idea/**/dataSources.ids
+.idea/**/dataSources.local.xml
+.idea/**/sqlDataSources.xml
+.idea/**/dynamic.xml
+.idea/**/uiDesigner.xml
+.idea/**/dbnavigator.xml
+
+# Gradle
+.idea/**/gradle.xml
+.idea/**/libraries
+
+# Gradle and Maven with auto-import
+# When using Gradle or Maven with auto-import, you should exclude module files,
+# since they will be recreated, and may cause churn. Uncomment if using auto-import.
+.idea/artifacts
+.idea/compiler.xml
+.idea/jarRepositories.xml
+.idea/modules.xml
+.idea/*.iml
+.idea/modules
+*.iml
+*.ipr
+
+# Build tool files
+cmake-build-*/
+
+# Mongo Explorer plugin
+.idea/**/mongoSettings.xml
+
+# File-based project format
+*.iws
+
+# IntelliJ specific output
+out/
+
+# mpeltonen/sbt-idea plugin
+.idea_modules/
+
+# JIRA plugin
+atlassian-ide-plugin.xml
+
+# Cursive Clojure plugin
+.idea/replstate.xml
+
+# SonarLint plugin
+.idea/sonarlint/
+# see https://community.sonarsource.com/t/is-the-file-idea-idea-idea-sonarlint-xml-intended-to-be-under-source-control/121119
+.idea/sonarlint.xml
+
+# Crashlytics plugin (for Android Studio and IntelliJ)
+com_crashlytics_export_strings.xml
+crashlytics.properties
+crashlytics-build.properties
+fabric.properties
+
+# Editor-based Rest Client
+.idea/httpRequests
+
+# Android studio 3.1+ serialized cache file
+.idea/caches/build_file_checksums.ser
+
+# Visual Studio Code
+# Ignores all files in .vscode except for shared settings
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+!.vscode/*.code-snippets
+
+# Local History for VS Code
+.history/
+
+# Built VS Code Extensions
+*.vsix
+
+# Other Editors
+.Rproj.user/
+.spyderproject
+.spyproject
+.ropeproject
+.buildlog/
+.cursorignore
+.cursorindexingignore
+
+# ---
+### Python ###
+# Byte-compiled/optimized files
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+
+# Distribution / packaging
+.Python
+develop-eggs/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# Installer logs
+pip-log.txt
+pip-delete-this-directory.txt
+
+# Virtual Environments
+.env
+.venv
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+
+# Package manager lock files (uncomment for libraries, keep for applications)
+# Pipfile.lock
+# poetry.lock
+# pdm.lock
+# uv.lock
+
+# Package manager configs
+.pdm.toml
+.pdm-python
+.pdm-build/
+.pypirc
+poetry.toml # Added
+
+# PyInstaller
+*.manifest
+*.spec
+
+# Test & coverage reports
+htmlcov/
+.tox/
+.nox/
+.coverage
+.coverage.*
+.cache
+nosetests.xml
+coverage.xml
+*.cover
+.hypothesis/
+.pytest_cache/
+cover/
+.ruff_cache/
+
+# Type checkers
+.mypy_cache/
+.dmypy.json
+dmypy.json
+.pyre/
+.pytype/
+cython_debug/
+
+# Translations
+*.mo
+*.pot
+
+# Django
+local_settings.py
+db.sqlite3
+db.sqlite3-journal
+
+# Flask
+instance/
+.webassets-cache
+
+# Scrapy
+.scrapy
+
+# Sphinx / MkDocs
+docs/_build/
+/site
+
+# Jupyter Notebook
+.ipynb_checkpoints
+
+# IPython
+profile_default/
+ipython_config.py
+
+# pyenv
+.python-version # Added
+
+# Celery
+celerybeat-schedule
+celerybeat.pid
+
+# SageMath
+*.sage.py
+
+# ---
+### Node.js / JavaScript ###
+# Compiled binary addons
+build/Release
+
+# TypeScript cache
+*.tsbuildinfo
+
+# REPL history
+.node_repl_history
+
+# npm/yarn artifacts
+*.tgz
+.yarn-integrity
+
+# Framework-specific
+.next/
+.nuxt/
+.vuepress/dist/
+.temp/
+.docusaurus/
+.serverless/
+.fusebox/
+.dynamodb/
+.tern-port
+.vscode-test/
+
+# Yarn v2+
+.pnp.*
+.yarn/cache
+.yarn/unplugged
+.yarn/build-state.yml
+.yarn/install-state.gz
+
+# ---
+### Java / Kotlin ###
+# Compiled files
+*.class
+*.jar
+*.war
+*.ear
+*.nar
+
+# Build tools
+.gradle
+.kotlin/
+pom.xml.tag # Added
+pom.xml.releaseBackup # Added
+pom.xml.versionsBackup # Added
+release.properties # Added
+dependency-reduced-pom.xml # Added
+buildNumber.properties # Added
+
+# BlueJ
+*.ctxt
+
+# Mobile Tools for Java (J2ME)
+.mtj.tmp/
+
+# ---
+### Go ###
+# Binaries
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+
+# Test binary
+*.test
+
+# Coverage profiles
+*.out
+coverage.*
+*.coverprofile
+profile.cov
+
+# Dependency directories
+vendor/ # Added
+
+# Workspace files
+go.work
+go.work.sum
+
+# ---
+### Rust ###
+# Compiled files and executables
+debug/
+target/
+*.pdb
+
+# Backup files
+**/*.rs.bk
+
+# Mutation testing
+**/mutants.out*/
+
+# ---
+### Dart & Flutter ###
+# General Dart/Pub ignores
+.dart_tool/
+.packages
+build/
+pubspec.lock
+doc/api/
+*.dart.js
+*.info.json
+*.js
+*.js_
+*.js.deps
+*.js.map
+
+# Flutter specific
+.flutter-plugins
+.flutter-plugins-dependencies
+.pub-preload-cache/
+.pub/
+/bin/cache/
+/dev/bots/.recipe_deps/
+/dev/bots/android_tools/
+/dev/devicelab/ABresults*.json
+/dev/docs/doc/
+version
+analysis_benchmark.json
+flutter_*.png
+app.*.symbols
+coverage/
+/bin/internal/bootstrap.bat # Added
+/bin/internal/bootstrap.sh # Added
+/bin/mingit/ # Added
+/dev/benchmarks/mega_gallery/ # Added
+/dev/docs/flutter.docs.zip # Added
+/dev/docs/lib/ # Added
+/dev/docs/pubspec.yaml # Added
+/dev/integration_tests/**/xcuserdata # Added
+/dev/integration_tests/**/Pods # Added
+/packages/flutter/coverage/ # Added
+.packages.generated # Added
+linked_*.ds # Added
+
+# Generated files
+**/generated_plugin_registrant.dart
+unlinked.ds
+unlinked_spec.ds
+
+# Android
+**/android/**/gradle-wrapper.jar
+**/android/captures/
+**/android/gradlew
+**/android/gradlew.bat
+**/android/local.properties
+**/android/**/GeneratedPluginRegistrant.java
+**/android/key.properties
+*.jks
+
+# iOS/macOS
+**/ios/**/*.mode1v3
+**/ios/**/*.mode2v3
+**/ios/**/*.moved-aside
+**/ios/**/*.pbxuser
+**/ios/**/*.perspectivev3
+**/ios/**/*sync/
+**/ios/**/.sconsign.dblite
+**/ios/**/.tags*
+**/ios/**/.vagrant/
+**/ios/**/DerivedData/
+**/ios/**/Icon?
+**/ios/**/Pods/
+**/ios/**/.symlinks/
+**/ios/**/profile
+**/ios/**/xcuserdata
+**/ios/.generated/
+**/ios/Flutter/.last_build_id
+**/ios/Flutter/App.framework
+**/ios/Flutter/Flutter.framework
+**/ios/Flutter/Flutter.podspec
+**/ios/Flutter/Generated.xcconfig
+**/ios/Flutter/ephemeral
+**/ios/Flutter/app.flx
+**/ios/Flutter/app.zip
+**/ios/Flutter/flutter_assets/
+**/ios/Flutter/flutter_export_environment.sh
+**/ios/ServiceDefinitions.json
+**/ios/Runner/GeneratedPluginRegistrant.*
+**/macos/Flutter/GeneratedPluginRegistrant.swift
+**/macos/Flutter/ephemeral
+**/xcuserdata/
+
+# Windows
+**/windows/flutter/generated_plugin_registrant.cc
+**/windows/flutter/generated_plugin_registrant.h
+**/windows/flutter/generated_plugins.cmake
+
+# Linux
+**/linux/flutter/generated_plugin_registrant.cc
+**/linux/flutter/generated_plugin_registrant.h
+**/linux/flutter/generated_plugins.cmake
+
+# Exceptions to above rules.
+!**/ios/**/default.mode1v3
+!**/ios/**/default.mode2v3
+!**/ios/**/default.pbxuser
+!**/ios/**/default.perspectivev3
+!/packages/flutter_tools/test/data/dart_dependencies_test/**/.packages
+!/dev/ci/**/Gemfile.lock
+
+# ---
+### Swift / Xcode ###
+# User settings
+xcuserdata/
+
+# Swift/Obj-C build artifacts
+*.hmap
+*.ipa
+*.dSYM.zip
+*.dSYM
+
+# Playgrounds
+timeline.xctimeline
+playground.xcworkspace
+
+# Swift Package Manager
+.build/
+# Add this line if you want to avoid checking in source code from Swift Package Manager dependencies.
+# Packages/ # Added (commented)
+# Package.pins # Added (commented)
+# Package.resolved # Already present, but ensuring it's clear it's for SPM
+# *.xcodeproj # Added (commented)
+# Xcode automatically generates this directory with a .xcworkspacedata file and xcuserdata
+# hence it is not needed unless you have added a package configuration file to your project
+# .swiftpm # Added (commented)
+
+# CocoaPods
+# We recommend against adding the Pods directory to your .gitignore. However
+# you should judge for yourself, the pros and cons are mentioned at:
+# https://guides.cocoapods.org/using/using-cocoapods.html#should-i-check-the-pods-directory-into-source-control
+# Pods/ # Already present in iOS/macOS section, but adding here as a commented option for clarity.
+# Add this line if you want to avoid checking in source code from the Xcode workspace
+# *.xcworkspace # Added (commented)
+
+# Carthage
+# Add this line if you want to avoid checking in source code from Carthage dependencies.
+# Carthage/Checkouts # Added (commented)
+Carthage/Build/
+
+# fastlane
+fastlane/report.xml
+fastlane/Preview.html
+fastlane/screenshots/
+fastlane/test_output/
+
+# ---
+### R ###
+# History & Session Data
+.Rhistory
+.Rapp.history
+.RData
+.RDataTmp
+
+# User-specific files
+.Ruserdata
+.Renviron
+
+# Build & Check artifacts
+*-Ex.R
+/*.tar.gz
+/*.Rcheck/
+
+# Vignettes
+vignettes/*.html
+vignettes/*.pdf
+
+# Caching & temp files
+*_cache/
+/cache/
+*.utf8.md
+*.knit.md
+po/*~
+
+# httr OAuth token
+.httr-oauth
+
+# RStudio Connect
+rsconnect/
+
+# ---
+### Julia ###
+# Coverage & Allocation files
+*.jl.cov
+*.jl.*.cov
+*.jl.mem
+
+# System-specific dependencies
+deps/deps.jl
+deps/build.log
+deps/downloads/
+deps/usr/
+deps/src/
+
+# Documentation artifacts
+docs/build/
+docs/site/
+
+# Package Manifest (uncomment for libraries, keep for applications)
+# Manifest*.toml
+
+# AI tools
+.aider*
+.cecli*

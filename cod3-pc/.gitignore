@@ -1,0 +1,23 @@
+# Generated C++ contains translations of copyrighted game machine code.
+/generated/*/*
+!/generated/*/codegen.partition.json
+/out/
+/build/
+/CMakeUserPresets.json
+/.cache/
+/cache/
+/user_data/
+/logs/
+
+# Game binaries and assets remain local.
+*.xex
+*.xexp
+*.dll
+*.exe
+*.iso
+*.7z
+*.zip
+*.bin
+*.pdb
+*.obj
+*.lib

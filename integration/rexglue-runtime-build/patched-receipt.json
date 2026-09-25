@@ -1,0 +1,19 @@
+{
+  "started_utc": "2026-09-05T08:41:46.5532306Z",
+  "ended_utc": "2026-09-05T08:41:47.7436555Z",
+  "process_id": 19480,
+  "configuration": "RelWithDebInfo",
+  "executable": "<workspace>\\integration\\rexglue-runtime-build\\probe-build\\runtime_heap_abi_probe.exe",
+  "executable_sha256": "578CB7276F44C603D602D0129A99BE235B400189C43040403409FB627AB9CCD1",
+  "source": "<workspace>\\integration\\rexglue-runtime-probe\\main.cpp",
+  "source_sha256": "134E10351853C8C472E4C1A7F419A37A7D48FBEA642100C44F3608EB4EABDECD",
+  "compiled_against": "Original win-amd64 SDK headers and import library",
+  "requested_runtime": "<workspace>\\tools\\rexglue-patched-sdk\\bin\\rexruntimerd.dll",
+  "observed_runtime": "<workspace>\\tools\\rexglue-patched-sdk\\bin\\rexruntimerd.dll",
+  "runtime_path_verified": true,
+  "runtime_sha256": "7914D5E4DDE9045C35FFE669464CA78307355412DC4A83350BA553933F569623",
+  "exit_code": 0,
+  "expected_exit_code": 0,
+  "passed": true,
+  "result_path": "<workspace>\\integration\\rexglue-runtime-build\\patched-regression.json"
+}
